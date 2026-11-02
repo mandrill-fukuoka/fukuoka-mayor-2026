@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福岡市マスタープラン解説</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* layout: 目次つきの縦長ドキュメント。表は横スクロール可。数字は強調色で目立たせる */
+:root{
+  --bg:#f6f4ef; --card:#ffffff; --ink:#1b2430; --sub:#5b6573; --line:#dcd8cd;
+  --accent:#0f5c78; --accent-soft:#e1eef3; --num:#b3261e; --warn:#8a5a00; --warn-bg:#fbefd2;
+  --font-display:'Noto Serif JP','Hiragino Mincho ProN',serif;
+  --font-body:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#13181f; --card:#1b222c; --ink:#e8e6e0; --sub:#9aa3b0; --line:#2e3644;
+    --accent:#6cc0dd; --accent-soft:#17303b; --num:#ff8a80; --warn:#f0c46a; --warn-bg:#352b12; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13181f; --card:#1b222c; --ink:#e8e6e0; --sub:#9aa3b0; --line:#2e3644;
+  --accent:#6cc0dd; --accent-soft:#17303b; --num:#ff8a80; --warn:#f0c46a; --warn-bg:#352b12; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.75;font-size:15px}
+.wrap{max-width:900px;margin:0 auto;padding:22px 16px 80px}
+h1{font-family:var(--font-display);font-size:28px;margin:0 0 6px;text-wrap:balance}
+h2{font-family:var(--font-display);font-size:21px;margin:40px 0 10px;padding-top:6px;border-top:3px solid var(--accent);text-wrap:balance}
+h3{font-size:16px;margin:22px 0 6px;color:var(--accent)}
+p{margin:8px 0}
+.lead{color:var(--sub);margin:0 0 14px}
+.note{background:var(--warn-bg);color:var(--warn);padding:10px 14px;border-radius:6px;font-size:13.5px;margin:14px 0}
+.toc{display:flex;flex-wrap:wrap;gap:6px 14px;margin:14px 0 0;padding:0;list-style:none;font-size:14px}
+.toc a{color:var(--accent)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:12px 0}
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:8px;margin:10px 0}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--sub);font-weight:500;font-size:12.5px;white-space:nowrap}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+b.k{color:var(--num);font-weight:700;font-variant-numeric:tabular-nums}
+ul{margin:6px 0;padding-left:1.3em}
+li{margin:3px 0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);margin-right:4px}
+a{color:var(--accent)}
+.src li{font-size:13px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>福岡市マスタープラン解説</h1>
+<p class="lead">2026年11月1日時点。福岡市が公表している計画の本文と議会・審議会資料をもとに、市民の暮らしに関わる内容を整理しました。</p>
+<ul class="toc">
+  <li><a href="#overview">全体像</a></li>
+  <li><a href="#basic">第10次基本計画</a></li>
+  <li><a href="#space">空間構成</a></li>
+  <li><a href="#action">政策推進プラン</a></li>
+  <li><a href="#toshi">都市計画マスタープラン</a></li>
+  <li><a href="#ku">7区の方向性</a></li>
+  <li><a href="#process">改定の経緯と市民意見</a></li>
+  <li><a href="#history">過去の変遷</a></li>
+  <li><a href="#caveat">未確認の点</a></li>
+  <li><a href="#sources">出典</a></li>
+</ul>
+<p class="note">数値は市の資料からの転記です。重要な数字は、必ず出典の原本で確認してください。市の計画を事実として整理したもので、特定の候補者や政策への評価は含みません。</p>
+
+<h2 id="overview">1. 全体像：どの計画が何を決めているか</h2>
+<div class="tbl"><table>
+  <thead><tr><th>計画</th><th>期間</th><th>役割</th></tr></thead>
+  <tbody>
+  <tr><td>基本構想</td><td class="n">目標年次なし<br>2012年12月策定</td><td>市が長期的にめざす4つの都市像。すべての計画の土台</td></tr>
+  <tr><td>第10次基本計画</td><td class="n">2025〜2034年度<br>2024年12月策定</td><td>8つの目標と30の施策。10年後の「都市の望ましい姿」</td></tr>
+  <tr><td>第1次政策推進プラン</td><td class="n">2025〜2028年度<br>2025年6月策定</td><td>基本計画を進める4年間の具体的な事業と目標値</td></tr>
+  <tr><td>都市計画マスタープラン</td><td class="n">目標年次2034年度<br>2026年2月改定</td><td>土地利用・交通・防災・みどりなど、まちの形に関する基本方針。個々の都市計画決定の根拠になる</td></tr>
+  <tr><td>分野別計画</td><td class="n">計画ごとに異なる</td><td>保健福祉総合計画（次期は2027〜2032年度）、都市交通基本計画、みどりの基本計画など</td></tr>
+  </tbody>
+</table></div>
+<p>基本構想の4つの都市像は次のとおりです。</p>
+<ul>
+  <li>自律した市民が支え合い心豊かに生きる都市</li>
+  <li>自然と共生する持続可能で生活の質の高い都市</li>
+  <li>海に育まれた歴史と文化の魅力が人をひきつける都市</li>
+  <li>活力と存在感に満ちたアジアの拠点都市</li>
+</ul>
+
+<h2 id="basic">2. 第10次基本計画（2025〜2034年度）</h2>
+<p>めざす姿は「人と環境と都市活力が高い次元で調和したアジアのリーダー都市」です。基本戦略は3つあります。</p>
+<ul>
+  <li>「生活の質の向上」と「都市の成長」の持続的な好循環をつくる</li>
+  <li>多様な人材が育ち、集い、チャレンジできる環境をつくる（今回新たに打ち出された戦略）</li>
+  <li>福岡都市圏全体として発展し、九州・日本・アジアに対して広域的な役割を担う</li>
+</ul>
+<h3>人口の見通し（市の将来人口推計・2024年度版）</h3>
+<div class="tbl"><table>
+  <thead><tr><th>年</th><th>総人口</th><th>年少</th><th>生産年齢</th><th>老年</th></tr></thead>
+  <tbody>
+  <tr><td>2025</td><td class="n"><b class="k">165.6</b>万人</td><td class="n">20.7万</td><td class="n">107.1万</td><td class="n">37.8万</td></tr>
+  <tr><td>2035</td><td class="n">169.4万人</td><td class="n">19.6万</td><td class="n">106.7万</td><td class="n">43.2万</td></tr>
+  <tr><td>2040</td><td class="n"><b class="k">170.2</b>万人（ピーク）</td><td class="n">19.8万</td><td class="n">103.1万</td><td class="n">47.2万</td></tr>
+  <tr><td>2050</td><td class="n">168.7万人</td><td class="n">18.7万</td><td class="n">98.0万</td><td class="n">52.0万</td></tr>
+  </tbody>
+</table></div>
+<p>総人口は2040年頃にピークを迎えます。老年人口の割合は、2025年の約<b class="k">23%</b>から2050年には約<b class="k">31%</b>に上がる見通しです。</p>
+
+<h3>8つの分野別目標と、市民意識の現状（2024年度調査）</h3>
+<p>「そう思う」「どちらかと言えばそう思う」と答えた市民の割合です。</p>
+<div class="tbl"><table>
+  <thead><tr><th>目標</th><th>市民意識（現状）</th><th>主な施策</th></tr></thead>
+  <tbody>
+  <tr><td>1 一人ひとりが心豊かに暮らし、自分らしく輝いている</td><td>尊重される <b class="k">63.9%</b><br>心豊かに <b class="k">83.3%</b><br>福祉で安心 <b class="k">60.5%</b></td><td>ユニバーサル都市の推進、健康寿命の延伸、福祉の充実。単身高齢者・要介護者の増加が課題</td></tr>
+  <tr><td>2 すべての子ども・若者が夢を描きながら健やかに成長している</td><td>子育て環境 <b class="k">63.5%</b><br>健やかに育つ <b class="k">56.9%</b><br>人材として成長 <b class="k">60.7%</b></td><td>社会全体で子どもを見守る環境、困難を抱える子ども・若者への支援、自ら学び協働できる子どもの育成、挑戦する人材の育成</td></tr>
+  <tr><td>3 地域の人々がつながり、支え合い、安全・安心に暮らしている</td><td>つながり・支え合い <b class="k">55.7%</b><br>災害への備え <b class="k">62.9%</b><br>防犯・消防・医療 <b class="k">81.5%</b></td><td>自治会・町内会の担い手不足への対応、生活交通・買い物支援の地域差の解消、公共施設の老朽化、激甚化する災害への備え</td></tr>
+  <tr><td>4 人と自然が共生し、身近に潤いと安らぎが感じられる</td><td>自然と都市のバランス <b class="k">92.9%</b><br>花や緑の潤い <b class="k">85.7%</b><br>脱炭素・リサイクル <b class="k">58.6%</b></td><td>都市と自然が調和したまちづくり、花と緑、脱炭素（2040年度に温室効果ガス排出量実質ゼロ）、循環経済</td></tr>
+  <tr><td>5 磨かれた魅力に人々が集い、活力に満ちている</td><td>観光資源 <b class="k">82.8%</b><br>公園の活用 <b class="k">80.3%</b><br>エンタメ <b class="k">88.5%</b></td><td>観光資源の磨き上げ、歴史・文化を生かした観光、MICEの受入環境、エンターテインメント都市づくり</td></tr>
+  <tr><td>6 都市機能が充実し、多くの人や企業から選ばれている</td><td>都心部の賑わい <b class="k">89.6%</b><br>拠点と公共交通 <b class="k">83.2%</b><br>仕事の選択肢 <b class="k">67.8%</b></td><td>都心部の機能強化、魅力・活力創造拠点づくり、公共交通を主軸とした総合交通体系、本社機能・成長企業の誘致。渋滞と若者の東京圏流出が課題</td></tr>
+  <tr><td>7 チャレンジ精神と新たな価値の創造で、地域経済が活性化している</td><td>新鮮な農水産物 <b class="k">94.9%</b><br>チャレンジしやすさ <b class="k">53.3%</b><br>産学連携の先端技術 <b class="k">50.4%</b></td><td>地場中小企業の競争力強化、農林水産業の振興、スタートアップ都市づくり。人手不足・後継者不足が課題</td></tr>
+  <tr><td>8 アジアのモデル都市として世界とつながり、国際的な存在感がある</td><td>港湾・空港の利便性 <b class="k">94.0%</b><br>海外ビジネスと住みやすさ <b class="k">58.7%</b><br>国際的な存在感 <b class="k">56.6%</b></td><td>博多港・福岡空港を核としたゲートウェイづくり、国際ビジネス交流とグローバル人材が暮らしやすいまち、国際会議の誘致</td></tr>
+  </tbody>
+</table></div>
+<p>市民の評価が低めなのは、チャレンジしやすさ・産学連携（約50〜53%）、つながりや支え合い（55.7%）、子どもの健やかな成長（56.9%）です。計画づくりでは、小中学生約12万人へのアンケートなど市民意見も集めました。</p>
+
+<h2 id="space">3. 空間構成：どこをどう育てるか</h2>
+<p>めざす都市の形は「コンパクトでコントラストのある都市」です。海と山に囲まれた地形を生かし、都心部を中心にコンパクトな市街地をつくり、エリアごとに違う個性を伸ばします。</p>
+<div class="two">
+  <div class="box"><b>都心部</b><br>天神、博多駅、博多ふ頭・中央ふ頭を中心とするエリア</div>
+  <div class="box"><b>広域拠点</b><br>東部＝香椎・千早、南部＝大橋、西部＝西新・藤崎・シーサイドももち</div>
+  <div class="box"><b>地域拠点</b><br>和白、箱崎、雑餉隈、六本松・鳥飼・別府、長住・花畑、野芥、姪浜、橋本、今宿・周船寺</div>
+  <div class="box"><b>魅力・活力創造拠点</b><br>アイランドシティ、九州大学箱崎キャンパス跡地、舞鶴公園・大濠公園地区、シーサイドももち、九州大学伊都キャンパス周辺</div>
+</div>
+<p>緑の骨格は、森の緑地環・緑の腕、河川緑地軸、博多湾水際帯です。土地利用は8つのゾーン（中心市街地、中高密度住宅地、低密度住宅地、住工複合市街地、流通・工業地、農地・集落、山地・丘陵地、水辺）に分かれ、都心に近いほど都市機能の密度が高くなる配置です。</p>
+
+<h2 id="action">4. 第1次政策推進プラン（2025〜2028年度）</h2>
+<p>基本計画を4年で進める具体的な事業計画です。重点分野は4つです。</p>
+<ol>
+  <li>共生・共創の地域づくり（年齢・性別・国籍・障がいの有無を問わない共生、生涯現役社会）</li>
+  <li>子どもの育成と若者の活躍</li>
+  <li>観光・MICEと都心部機能の充実</li>
+  <li>スタートアップ等による新しい価値の創造</li>
+</ol>
+<p>計画事業費（一般会計）は、重点事業・主要事業・区事業の合計で約<b class="k">6,300億円</b>です。うち重点事業は約<b class="k">4,500億円</b>（商工金融資金を除く）。現時点の見込みで、年度ごとの予算編成で精査されます。</p>
+<h3>目標値の例（現状 → 目標）</h3>
+<div class="tbl"><table>
+  <thead><tr><th>分野</th><th>指標</th><th>現状 → 目標</th></tr></thead>
+  <tbody>
+  <tr><td rowspan="6">子育て</td><td>産後ケア延べ利用</td><td class="n"><b class="k">6,043</b>人日 → <b class="k">26,300</b>人日</td></tr>
+  <tr><td>産前・産後ヘルパー利用</td><td class="n">8,044回 → 16,500回</td></tr>
+  <tr><td>子育て支援コンシェルジュ配置</td><td class="n">14か所 → 27か所</td></tr>
+  <tr><td>病児・病後児デイケアルーム</td><td class="n">21か所 → 24か所</td></tr>
+  <tr><td>放課後児童クラブ利用者</td><td class="n">19,505人 → 21,800人</td></tr>
+  <tr><td>保育士支援センターの就職成立割合</td><td class="n">29.5% → 34%</td></tr>
+  <tr><td rowspan="3">子ども・若者</td><td>子ども食堂の中学校区充足率</td><td class="n">79.7% → 92%</td></tr>
+  <tr><td>里親等委託率</td><td class="n">56.2% → 60%</td></tr>
+  <tr><td>不登校の児童生徒で専門的相談・指導を受けた割合</td><td class="n">48.1% → 59%</td></tr>
+  <tr><td rowspan="3">健康・福祉</td><td>特定健診受診率</td><td class="n">28.3% → 37.5%</td></tr>
+  <tr><td>ユマニチュード講座延べ受講者</td><td class="n">約1万人 → 約10万人</td></tr>
+  <tr><td>介護事業所へのコンサルタント支援</td><td class="n">30事業所 → 100事業所</td></tr>
+  <tr><td rowspan="2">交通</td><td>地下鉄車両の優先スペース改修</td><td class="n">9編成 → 49編成（全編成）</td></tr>
+  <tr><td>ユニバーサルデザインタクシー導入率</td><td class="n">20% → 25%（2025年度）</td></tr>
+  <tr><td rowspan="2">文化・経済</td><td>文化芸術を鑑賞する市民の割合</td><td class="n">61.2% → 75%</td></tr>
+  <tr><td>Well-being＆SDGs登録事業者</td><td class="n">660 → 960</td></tr>
+  </tbody>
+</table></div>
+<p>背景として、市の資料は人口が166万人を超えたこと、市税収入が2023年度に過去最高を更新したこと、観光客が日帰り約1,733万人・宿泊約576万人（2023年）であることを挙げています。</p>
+
+<h2 id="toshi">5. 都市計画マスタープラン（2026年2月改定）</h2>
+<p>都市計画法に基づく、まちの形の基本方針です。目標年次は第10次基本計画と同じ2034年度です。</p>
+<h3>理念と方向</h3>
+<div class="box">
+  <b>都市像</b>：豊かな自然環境と充実した都市機能を備えた、コンパクトでコントラストのある持続可能な都市<br>
+  <b>基本理念</b>（3つ）：①交流を育み都市の成長を図る　②地域の特性を生かし生活の質を高める　③人と自然が共生し安全・安心な暮らしができる<br>
+  <b>基本方向</b>（6つ）：九州・アジアの交流拠点都市の形成／都心部の機能強化と魅力向上／拠点の機能強化／日常生活圏の形成／環境にやさしくみどり豊かな都市／災害に強く安全・安心な都市空間
+</div>
+<h3>都心部：3つの「都心核」と4つの「都心拠点」</h3>
+<ul>
+  <li><b>天神</b>：国際競争力のある商業・業務機能と、歩行者ネットワークによる回遊性の向上</li>
+  <li><b>博多駅周辺</b>：国際的な広域業務の中心。博多旧市街との回遊性を高める</li>
+  <li><b>中央ふ頭・博多ふ頭（ウォーターフロント）</b>：MICE機能と国際・国内旅客ターミナル機能を集積し、海辺空間を生かす</li>
+  <li>都心拠点：天神北（文化・スポーツ・緑と水辺）、渡辺通（地下鉄七隈線を生かしたビジネス機能）、博多部（歴史・文化）、中洲川端（娯楽・飲食）</li>
+</ul>
+<h3>土地利用（開発のルール）</h3>
+<ul>
+  <li>市街化区域の拡大は必要最小限にとどめ、市街化調整区域の自然と農地を保全する</li>
+  <li>標高が概ね<b class="k">80m</b>以上の区域は、景観・災害防止・水源かん養の観点から保全に努める</li>
+  <li>都心部から周辺部へ段階的に密度を下げる構成にする</li>
+  <li>調整区域は原則として市街化を抑えるが、鉄道駅周辺や幹線道路沿道で良好な市街地整備が確実な地区は、災害リスクを勘案したうえで市街化区域への編入を誘導する</li>
+  <li>広域拠点・地域拠点・都市軸・幹線沿道・鉄道駅周辺では、既存の都市基盤を活用した適切な高度利用を図る</li>
+  <li>農山漁村地域は、定住化促進、空き家・空き地の活用、規制緩和制度による地域産業振興を進める</li>
+  <li>本文に、容積率や用途地域の具体的な数値は書かれていない</li>
+</ul>
+<h3>交通</h3>
+<ul>
+  <li>公共交通を主軸にした総合交通体系。交通結節機能の強化、シェアサイクルなどの活用</li>
+  <li>都心部への自動車流入の抑制、幹線道路ネットワークの形成、都市高速道路の延伸（空港線）</li>
+  <li>都心循環BRTによる都心部の交通強化</li>
+  <li>生活交通の確保（オンデマンド交通など）、バリアフリー化、無電柱化、公共交通・自動車の脱炭素化</li>
+</ul>
+<h3>防災</h3>
+<ul>
+  <li><b>水害</b>：排水施設の整備、都心部の貯留施設など雨水流出抑制、河川改修や治水池による流域治水、雨水管・ポンプ場の能力強化</li>
+  <li><b>震災</b>：橋梁・上下水道の耐震化、警固断層帯周辺の建物の耐震化の促進、地下街の防災対策、液状化対策、津波対策の検討</li>
+  <li><b>避難</b>：公園・緑地を避難場所に確保、避難所の環境整備（温かい食事、清潔なトイレ、福祉避難所の拡大）、狭あい道路の拡幅、緊急輸送道路の確保</li>
+</ul>
+<h3>住まい・みどり</h3>
+<ul>
+  <li>子育て世帯・高齢者世帯向けの住宅供給、市営住宅を中核とした住宅セーフティネット（城浜住宅の建替え、福浜住宅の耐震化など）</li>
+  <li>マンションの管理適正化、空き家の予防・利活用、放置空家への対策</li>
+  <li>みどりの骨格（森の緑地環・緑の腕、博多湾水際帯、山すそ・水辺・街中のみどり）を守り、公共施設・民有地の緑化を進める</li>
+</ul>
+<h3>都市づくりの指標（目標値）</h3>
+<div class="tbl"><table>
+  <thead><tr><th>指標</th><th>現状</th><th>目標</th></tr></thead>
+  <tbody>
+  <tr><td>入込観光客数</td><td class="n"><b class="k">2,309</b>万人（2023年度）</td><td class="n"><b class="k">2,600</b>万人（2028年度）</td></tr>
+  <tr><td>都心部の1日の歩行者交通量</td><td class="n">18万5千人（2024年度）</td><td class="n">18万8千人（2028年度）</td></tr>
+  <tr><td>1日の鉄道・バス乗車人員</td><td class="n"><b class="k">118</b>万人（2023年度）</td><td class="n"><b class="k">125</b>万人（2028年度）</td></tr>
+  <tr><td>浸水対策重点地区の整備完了</td><td class="n"><b class="k">71</b>地区（2023年度）</td><td class="n"><b class="k">93</b>地区（2028年度）</td></tr>
+  <tr><td>全市域のみどりの面積</td><td class="n">18,984ha（2024年）</td><td class="n">18,984ha以上（2034年）</td></tr>
+  <tr><td>公共公益施設のみどりの面積</td><td class="n">612ha（2024年）</td><td class="n">613ha（2034年）</td></tr>
+  </tbody>
+</table></div>
+<p>指標は、基本計画と同時期の「2028年度」と、都市計画の目標年次「2034年度」が混在しています。みどりの面積は、全市域では「現状維持以上」、公共施設では「1ha増」という控えめな目標です。</p>
+
+<h2 id="ku">6. 7区のまちづくりの方向性</h2>
+<p>区別構想（都市計画マスタープラン）の要点です。第10次基本計画の区別目標では、2020年→2034年の推計人口は全市で<b class="k">161.2万人→169.2万人</b>、東区は32.3万→34.3万人、博多区25.2万→26.7万人、中央区20.6万→22.3万人、南区26.6万→27.5万人、城南区13.3万→13.7万人、早良区22.1万→22.7万人、西区21.3万→21.8万人です。</p>
+<div class="tbl"><table>
+  <thead><tr><th>区</th><th>主な方向</th></tr></thead>
+  <tbody>
+  <tr><td>東区</td><td>香椎・千早の東部拠点、アイランドシティ（先進モデル都市・国際物流拠点）、九州大学箱崎キャンパス跡地（質の高いライフスタイル）、和白干潟・立花山・志賀島などの自然保全、調整区域は定住化促進と観光振興</td></tr>
+  <tr><td>博多区</td><td>博多駅周辺の高度な都市機能と歩行者ネットワーク、ウォーターフロントのMICE機能とターミナル機能、博多港・福岡空港・博多駅の広域交通拠点機能の強化、寺社を生かした歴史的な街並み</td></tr>
+  <tr><td>中央区</td><td>天神の国際競争力ある商業・業務、舞鶴公園・大濠公園（歴史資源と文化芸術が融合する観光・交流拠点）、六本松の拠点形成、都心の水辺・通り・広場の魅力づくり</td></tr>
+  <tr><td>南区</td><td>大橋の南部拠点、長住・花畑の拠点形成、油山・那珂川などの自然保全、那珂川などでの浸水対策、大学など多様な主体との連携</td></tr>
+  <tr><td>城南区</td><td>鳥飼・別府、野芥の拠点形成（地下鉄七隈線と外環状道路を生かす）、樋井川の浸水対策、油山に近い地域の土砂災害対策、大学の知的資源を生かしたまちづくり</td></tr>
+  <tr><td>早良区</td><td>西新・藤崎の西部拠点とシーサイドももち（情報関連産業、観光・MICE拠点）、脊振山系・室見川の自然保全、調整区域の定住化促進</td></tr>
+  <tr><td>西区</td><td>姪浜・橋本・今宿・周船寺の拠点形成、九州大学伊都キャンパス周辺のイノベーション拠点、北崎・今津干潟などの自然保全、調整区域の定住化促進</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="process">7. 改定の経緯と市民意見</h2>
+<div class="tbl"><table>
+  <thead><tr><th>時期</th><th>出来事</th></tr></thead>
+  <tbody>
+  <tr><td class="n">2023年6月・8月</td><td>改定に着手。福祉都市委員会と都市計画審議会（第180回）に報告</td></tr>
+  <tr><td class="n">2023年12月〜2024年7月</td><td>改定検討懇話会を3回開催（12/1、3/28、7/5）</td></tr>
+  <tr><td class="n">2024年12月</td><td>上位計画の第10次基本計画が策定される</td></tr>
+  <tr><td class="n">2025年5月・10月</td><td>都市計画審議会（第185回、第186回）で改定案を審議・報告</td></tr>
+  <tr><td class="n">2025年10月20日〜11月19日</td><td>パブリック・コメント実施</td></tr>
+  <tr><td class="n">2026年2月</td><td>都市計画審議会（第187回、2/2）を経て改定</td></tr>
+  <tr><td class="n">2026年4月1日</td><td>市民意見への回答とあわせて公表。4月中は市役所・各区役所で閲覧・配布</td></tr>
+  </tbody>
+</table></div>
+<h3>パブリック・コメントの結果</h3>
+<p>提出者は<b class="k">39名</b>、意見は延べ<b class="k">93件</b>でした。章別の内訳は、第2章が2件、第3章（全体構想）が58件、第4章（区別構想）が21件、その他が12件です。市の対応は、原案修正が6件、原案どおりが81件、記載ありが5件、その他が1件でした。</p>
+<ul>
+  <li><b>最も多かった意見</b>：ウォーターフロント・博多湾の活用（中央ふ頭・博多ふ頭の拠点化、「海に開く都市」の明記、クルーズ・物流機能の再配置など）</li>
+  <li>交通・渋滞対策（都市高速・地下鉄の混雑緩和、新交通システムの導入）</li>
+  <li>「みどり豊か」などの具体的な数値目標の設定</li>
+  <li>防災・浸水対策（香椎地区の浸水対策の早期整備、高台避難場所）</li>
+  <li>地価高騰による住宅取得の難しさ、老朽マンションの建替え支援、調整区域の空き家活用</li>
+  <li>外国人との共生、意見募集期間（1か月）の短さ</li>
+</ul>
+<p>原案の修正は6件で、公表された内容はいずれも図や説明文の補足でした（生活交通の背景追記、都心部イラストの修正、住吉神社の追加など）。</p>
+
+<h2 id="history">8. 過去の変遷</h2>
+<h3>総合計画（基本構想・基本計画）</h3>
+<div class="tbl"><table>
+  <thead><tr><th>計画</th><th>時期</th><th>特徴</th></tr></thead>
+  <tbody>
+  <tr><td>第6次基本計画</td><td class="n">1988年（昭和63年）</td><td>1987年制定の基本構想の下で最初の基本計画。区別計画を初めて盛り込む</td></tr>
+  <tr><td>第7次基本計画</td><td class="n">未確認</td><td>第6次の構成を引き継ぐ</td></tr>
+  <tr><td>第8次基本計画</td><td class="n">2003年（平成15年）</td><td>2012年の改定まで続く</td></tr>
+  <tr><td>基本構想（改定）・第9次基本計画</td><td class="n">2012年12月<br>2013〜2022年度</td><td>基本構想は1987年の制定から約25年ぶりの改定。「住みたい、行きたい、働きたい。アジアの交流拠点都市・福岡」。基本戦略は「生活の質の向上と都市の成長の好循環」。8つの分野別目標</td></tr>
+  <tr><td>第10次基本計画</td><td class="n">2025〜2034年度</td><td>基本戦略に「多様な人材が育ち、集い、チャレンジできる環境」が加わる。8目標・30施策</td></tr>
+  </tbody>
+</table></div>
+<h3>実施計画（政策推進プラン）</h3>
+<ul>
+  <li>第9次の第1次：2013〜2016年度（2013年6月策定）</li>
+  <li>第2次：2017〜2020年度（2017年6月策定）</li>
+  <li>第3次：2021〜2024年度（2021年6月策定）</li>
+  <li>第10次の第1次：2025〜2028年度（2025年6月策定）</li>
+</ul>
+<h3>都市計画マスタープラン</h3>
+<div class="tbl"><table>
+  <thead><tr><th>版</th><th>目標年次</th><th>主な内容</th></tr></thead>
+  <tbody>
+  <tr><td>当初計画（2001年5月）</td><td class="n">平成22年（2010年）</td><td>全体構想と区別構想の2本立て</td></tr>
+  <tr><td>2014年5月改定</td><td class="n">平成34年度（2022年度）</td><td>新しい総合計画を受けて改定。6つの視点（交流・活力・活用・快適・環境・安全）を設定し、「福岡型のコンパクトな都市」を掲げた。人口は2035年頃まで増加する見込みだった。パブリック・コメントは2013年10月7日〜11月6日</td></tr>
+  <tr><td>2026年2月改定（現行）</td><td class="n">令和16年度（2034年度）</td><td>「コンパクトでコントラストのある持続可能な都市」。ウォーターフロントを都心核に位置づけ、都心循環BRT、空港線の延伸、福祉避難所の拡大などを盛り込む。人口のピーク（2040年頃）後の減少を見据える</td></tr>
+  </tbody>
+</table></div>
+<p>基本理念3つ・基本方向6つ、広域拠点・地域拠点・魅力活力創造拠点という骨格は、2014年版と2026年版で共通しています。
+
+「コンパクト」に「コントラスト」を加えたのは第10次基本計画からです。2014年版の本文との条文ごとの比較はまだ行っておらず、どの記述が新規かは確認できていません。</p>
+
+<h2 id="caveat">9. 未確認の点</h2>
+<ul>
+  <li>第7次基本計画の期間と内容、第8次基本計画の中身</li>
+  <li>政策推進プランの分野別の事業費内訳、前計画（第3次）の振り返り、行財政改革の方針</li>
+  <li>都市計画マスタープラン全体版（約31MB）の、区別構想の細部（本ページは審議会報告資料と第3章をもとにした要約です）</li>
+  <li>2014年版と2026年版の条文ごとの差分</li>
+  <li>このページの数値は、市の資料PDFを機械的に読み取って転記しています。引用や政策判断に使う前に、原本の該当ページをご確認ください</li>
+</ul>
+
+<h2 id="sources">10. 出典</h2>
+<ul class="src">
+  <li><a href="https://www.city.fukuoka.lg.jp/soki/kikaku/shisei/fukuokashikihonkosokihonkeikaku/documents/fukuokacity_digest_Japanese.pdf">第10次福岡市基本計画 概要版</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/soki/kikaku/shisei/fukuokashikihonkosokihonkeikaku/documents/dai10jikihonkeikaku.pdf">第10次福岡市基本計画（本編）</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/soki/kikaku/shisei/fukuokashikihonkosokihonkeikaku/documents/9.260723sannkousiryou6.pdf">政策推進プラン（第10次基本計画 第1次実施計画）</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/jutaku-toshi/toshikeikaku/machi/toshikeikaku-mp.html">福岡市都市計画マスタープラン（市公式ページ）</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/jutaku-toshi/toshikeikaku/machi/documents/04_fukuoka_city_toshikeikaku_mp_dai3syou.pdf">都市計画マスタープラン 第3章 全体構想</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/gikaizimukyoku/giji/shisei/documents/houkokugaiyou6.pdf">都市計画マスタープラン（案）報告資料（2025年9月議会）</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/jutaku-toshi/toshikeikaku/machi/documents/fukuoka_city_toshikeikaku_mp_pc.pdf">都市計画マスタープラン（案）パブリック・コメント実施結果</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/jutaku-toshi/toshikeikaku/machi/tokeisin/documents/06-sonota-bessatsu1.pdf">都市計画マスタープラン改定案（2014年）</a></li>
+  <li><a href="https://www.city.fukuoka.lg.jp/soki/kikaku/shisei/fukuokashikihonkosokihonkeikaku/sougoukeikaku/documents/4_sakuteinituite.pdf">総合計画（基本構想・基本計画）の策定について（2012年）</a></li>
+</ul>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福岡市長選2026 候補者DB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* layout: 白い誌面ふうのマストヘッド(左:題字 / 右:紺のカウントダウン板)→ 数字タイル → 候補者の「票」カード → 争点ヒートマップ → 計画 → 歴史 → ログ。
+   候補者の色は50音順の識別用で、政党や立場とは無関係 */
+:root{
+  --bg:#eef2f5; --card:#ffffff; --ink:#0a2540; --sub:#586a7e; --line:#d5dde5; --soft:#e4ebf1;
+  --hi:#00a3a3; --hi-ink:#ffffff; --coral:#e8453c; --blue:#0b63c5; --warn:#8a5a00; --warn-bg:#fbefd2;
+  --mast:#ffffff; --mast-ink:#0a2540; --mast-sub:#586a7e;
+  --font-body:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;
+  --font-head:'Shippori Mincho B1','Hiragino Mincho ProN','Yu Mincho',serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1520; --card:#112233; --ink:#e7eef5; --sub:#93a6ba; --line:#223548; --soft:#183047;
+    --hi:#2cc4c4; --hi-ink:#06222a; --coral:#ff7a70; --blue:#7db4ff; --warn:#f0c46a; --warn-bg:#352b12;
+    --mast:#0d1b2a; --mast-ink:#e7eef5; --mast-sub:#93a6ba; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1520; --card:#112233; --ink:#e7eef5; --sub:#93a6ba; --line:#223548; --soft:#183047;
+  --hi:#2cc4c4; --hi-ink:#06222a; --coral:#ff7a70; --blue:#7db4ff; --warn:#f0c46a; --warn-bg:#352b12;
+  --mast:#0d1b2a; --mast-ink:#e7eef5; --mast-sub:#93a6ba; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.75;font-size:15px}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+button{font:inherit;color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* masthead */
+.mast{background:var(--mast);color:var(--mast-ink);border-bottom:1px solid var(--line)}
+.mast .wrap{padding-top:28px;padding-bottom:28px;display:grid;grid-template-columns:1.5fr 1fr;gap:26px;align-items:stretch}
+@media (max-width:760px){.mast .wrap{grid-template-columns:1fr}}
+.kicker{display:inline-block;border:2px solid var(--ink);font-weight:700;font-size:13px;letter-spacing:.1em;padding:2px 10px}
+.mast h1{font-family:var(--font-head);font-size:clamp(36px,8vw,64px);line-height:1.12;margin:14px 0 10px;font-weight:800;text-wrap:balance}
+.mast h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--hi) 62%,var(--hi) 92%,transparent 92%);padding:0 .08em}
+.mast p.sub{color:var(--mast-sub);margin:0;max-width:34em}
+.count{background:var(--ink);color:#f3f7fa;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;border-radius:4px;position:relative}
+:root[data-theme="dark"] .count,
+:root:not([data-theme="light"]) .count{--cb:#12304a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .count{background:#12304a}}
+:root[data-theme="dark"] .count{background:#12304a}
+.count .l{font-size:13px;letter-spacing:.14em;color:#a9bfd2;font-weight:700}
+.count b{font-family:var(--font-head);font-size:clamp(84px,18vw,132px);line-height:1;font-weight:800;font-variant-numeric:tabular-nums;color:#fff}
+.count b + span{font-weight:900;font-size:22px;margin-left:6px}
+.count .d{font-size:13px;color:#a9bfd2;margin-top:6px}
+.count .d i{font-style:normal;color:#7fe0e0;font-weight:700}
+.strip{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.strip div{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--hi);padding:10px 14px}
+.strip b{display:block;font-family:var(--font-head);font-size:36px;line-height:1.15;font-weight:800;font-variant-numeric:tabular-nums}
+.strip small{color:var(--sub);font-size:12px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+.nav .wrap{display:flex;gap:4px;padding-top:6px;padding-bottom:6px}
+.nav a{color:var(--ink);text-decoration:none;font-weight:700;font-size:14px;padding:7px 14px;display:inline-block;border-radius:99px}
+.nav a:hover{background:var(--ink);color:var(--bg)}
+
+section{padding:36px 0 6px}
+h2{font-family:var(--font-head);font-size:clamp(26px,5vw,36px);line-height:1.25;margin:0 0 8px;font-weight:800;text-wrap:balance;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h2 small{font-family:var(--font-body);font-size:12px;letter-spacing:.14em;color:var(--hi);font-weight:900;border:1.5px solid var(--hi);padding:0 8px;line-height:1.7}
+.lead{color:var(--sub);margin:0 0 16px;max-width:46em}
+.note{background:var(--warn-bg);color:var(--warn);padding:10px 14px;font-size:13px;margin:12px 0;border-radius:4px}
+
+/* point tiles */
+.pts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;counter-reset:pt}
+.pt{background:var(--card);border:1px solid var(--line);padding:14px 16px 14px 56px;position:relative;border-radius:4px;counter-increment:pt}
+.pt::before{content:counter(pt);position:absolute;left:14px;top:10px;font-family:var(--font-head);font-size:34px;font-weight:800;color:var(--hi);line-height:1}
+.pt b{display:block;font-size:17px;margin-bottom:4px}
+.pt p{margin:0;font-size:14px;color:var(--sub)}
+
+/* controls */
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;align-items:center}
+.ctl input[type=search]{flex:1 1 200px;min-width:0;padding:9px 14px;border:1.5px solid var(--line);border-radius:99px;background:var(--card);color:var(--ink);font:inherit}
+.chip{border:1.5px solid var(--line);background:var(--card);padding:6px 14px;font-weight:700;font-size:13px;cursor:pointer;border-radius:99px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* candidate "ballot" cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.cc{background:var(--card);border:1px solid var(--line);text-align:left;padding:14px;cursor:pointer;display:flex;gap:14px;border-radius:6px;position:relative;overflow:hidden}
+.cc::after{content:"";position:absolute;right:-18px;top:-18px;width:56px;height:56px;background:var(--c);opacity:.14;border-radius:50%}
+.cc:hover{border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.sq{flex:none;width:58px;height:58px;border-radius:10px;background:var(--c);color:#fff;display:grid;place-items:center;font-family:var(--font-head);font-weight:800;font-size:30px}
+.cc .tx{min-width:0;flex:1}
+.cc h3{margin:0;font-family:var(--font-head);font-size:22px;line-height:1.2;font-weight:800}
+.cc .kana{font-size:11px;color:var(--sub)}
+.cc .role{font-size:13px;color:var(--sub);margin:4px 0 6px;min-height:2.9em}
+.cc .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.tag{background:var(--soft);padding:1px 9px;font-size:12px;font-weight:500;border-radius:99px}
+.tag.party{border:1.5px solid var(--ink);background:transparent;font-weight:700}
+.cc .nums{display:flex;gap:14px;font-size:12px;color:var(--sub);border-top:1px dashed var(--line);padding-top:6px}
+.cc .nums b{font-family:var(--font-head);font-size:20px;color:var(--ink);margin-right:2px}
+
+/* generic monogram (heatmap/theme cards) */
+.mono{flex:none;width:30px;height:30px;border-radius:8px;background:var(--c);color:#fff;display:grid;place-items:center;font-family:var(--font-head);font-weight:800;font-size:15px}
+
+/* heatmap */
+.hm{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:6px}
+.hm table{border-collapse:separate;border-spacing:3px;min-width:780px;width:100%}
+.hm th,.hm td{text-align:center;padding:0}
+.hm thead th{padding:8px 2px;font-size:11px;font-weight:700;vertical-align:bottom}
+.hm thead .m{width:30px;height:30px;border-radius:8px;background:var(--c);color:#fff;display:grid;place-items:center;font-size:15px;font-family:var(--font-head);font-weight:800;margin:0 auto 4px}
+.hm tbody th{text-align:left;padding:10px 10px;font-size:13px;position:sticky;left:0;background:var(--card);min-width:150px;z-index:1}
+.hm td{height:42px;min-width:44px;border-radius:6px;background:var(--soft)}
+.hm td button{width:100%;height:100%;border:0;background:transparent;cursor:pointer;font-family:var(--font-head);font-size:20px;font-weight:800;border-radius:6px}
+.hm td.on{background:var(--c)}
+.hm td.on button{color:#fff}
+.hm td.off button{color:var(--line)}
+
+/* theme cards */
+.tcs{display:grid;gap:12px}
+.tc{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.tc h3{margin:0 0 6px;font-family:var(--font-head);font-size:22px;font-weight:800}
+.tc .plan{background:var(--soft);padding:8px 10px;font-size:12.5px;color:var(--sub);margin-bottom:10px;border-left:4px solid var(--hi);border-radius:2px}
+.tc .plan b{color:var(--ink)}
+.tc ul{list-style:none;margin:0;padding:0}
+.tc li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.tc li .who{font-weight:700;display:block;font-size:13px}
+.tc li small{color:var(--sub)}
+.tc .none{color:var(--sub);font-size:12.5px;margin-top:6px}
+
+/* plan stats */
+.bars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.bar{background:var(--card);border:1px solid var(--line);padding:14px 16px;border-radius:6px}
+.bar .lab{font-size:13px;color:var(--sub)}
+.bar .v{font-family:var(--font-head);font-size:32px;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums}
+.bar .v i{font-style:normal;color:var(--sub);font-size:18px;font-weight:600}
+.bar .tr{height:10px;background:var(--soft);margin-top:6px;border-radius:99px;overflow:hidden}
+.bar .tr span{display:block;height:100%;background:var(--hi)}
+.bar small{font-size:11.5px;color:var(--sub)}
+.tl{position:relative;margin:18px 0 0;padding-left:26px;border-left:2px solid var(--line)}
+.tl .it{position:relative;padding:0 0 16px}
+.tl .it::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;background:var(--card);border:3px solid var(--sub);border-radius:50%}
+.tl .it.now::before{background:var(--hi);border-color:var(--ink)}
+.tl .when{font-family:var(--font-head);font-size:17px;font-weight:800}
+.tl .nm{font-weight:900}
+.tl .nt{font-size:13.5px;color:var(--sub)}
+
+/* history charts */
+.hist{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.hist .bx{background:var(--card);border:1px solid var(--line);padding:14px 16px;border-radius:6px}
+.hist h3{margin:0 0 8px;font-size:15px}
+.cols{display:flex;align-items:flex-end;gap:10px;height:170px}
+.cols div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.cols b{font-family:var(--font-head);font-size:20px;line-height:1.1}
+.cols span{width:100%;background:var(--line);display:block;min-height:3px;border-radius:4px 4px 0 0}
+.cols .cur span{background:var(--coral)}
+.cols small{font-size:12px;color:var(--sub);margin-top:4px}
+
+/* tables & forms */
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:6px}
+table.t{border-collapse:collapse;width:100%;min-width:640px;font-size:13.5px}
+table.t th,table.t td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t th{color:var(--sub);font-size:12px;background:var(--soft);white-space:nowrap}
+td.d{white-space:nowrap;font-variant-numeric:tabular-nums}
+form.add{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;background:var(--card);border:1px solid var(--line);padding:14px;margin-top:12px;border-radius:6px}
+form.add label{display:flex;flex-direction:column;font-size:12.5px;color:var(--sub);gap:3px}
+form.add .wide{grid-column:1/-1}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:8px 10px;min-width:0;border-radius:4px}
+.btn{background:var(--ink);color:var(--bg);border:0;padding:9px 18px;font-weight:700;cursor:pointer;border-radius:99px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+/* drawer */
+.dr{position:fixed;inset:0;background:rgba(5,15,25,.55);display:none;z-index:20}
+.dr.open{display:block}
+.dr .pn{position:absolute;right:0;top:0;bottom:0;width:min(560px,100%);background:var(--bg);overflow-y:auto;border-left:8px solid var(--c,var(--ink))}
+.dr .hd{display:flex;gap:12px;align-items:center;padding:16px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0}
+.dr .hd .mono{width:60px;height:60px;font-size:30px;border-radius:12px}
+.dr h3{margin:0;font-family:var(--font-head);font-size:26px;font-weight:800;line-height:1.2}
+.dr .x{margin-left:auto;border:1.5px solid var(--ink);background:var(--card);width:38px;height:38px;font-size:20px;cursor:pointer;border-radius:50%}
+.dr .bd{padding:14px 16px 40px}
+.dr dl{display:grid;grid-template-columns:7em 1fr;gap:8px 12px;margin:0 0 14px;font-size:14px}
+.dr dt{color:var(--sub);font-size:12.5px}
+.dr dd{margin:0}
+.dr h4{margin:18px 0 6px;font-size:15px;border-bottom:2px solid var(--hi);padding-bottom:3px}
+.dr li{font-size:14px;margin:6px 0}
+.dr ul{padding-left:1.1em;margin:0}
+
+footer{margin-top:44px;background:var(--ink);color:#a9bfd2;padding:26px 0 40px;font-size:13px}
+footer a{color:#7fe0e0}
+footer ul{padding-left:1.2em}
+.empty{color:var(--sub);padding:12px 0}
+@media (prefers-reduced-motion:no-preference){.cc{transition:box-shadow .15s,border-color .15s}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div>
+      <span class="kicker">2026年11月15日 投開票</span>
+      <h1>福岡市長選挙<em>2026</em></h1>
+      <p class="sub">高島市長は4期16年で退任し、立候補は過去最多の13人。候補者、公約、市の計画を並べて読む、中立の候補者データベースです。</p>
+    </div>
+    <div class="count">
+      <span class="l">投開票まで あと</span>
+      <div><b id="days">--</b><span>日</span></div>
+      <div class="d">告示 <i>11/1</i> ・ 投開票 <i>11/15(日)</i></div>
+    </div>
+    <div class="strip">
+      <div><b id="s-cand">13</b><small>人が立候補(告示日 11/1)</small></div>
+      <div><b>133.2<span style="font-size:20px">万人</span></b><small>有権者数(2026/9/1現在)</small></div>
+      <div><b>34.31<span style="font-size:20px">%</span></b><small>前回(2022年)の投票率</small></div>
+      <div><b id="s-pl">0</b><small>件の公約を収集済み</small></div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="ページ内移動"><div class="wrap">
+  <a href="#cands">候補者</a><a href="#issues">争点</a><a href="#plans">市の計画</a><a href="#history">過去の選挙</a><a href="#log">発言ログ</a><a href="#src">出典</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="points">
+  <h2><small>What to know</small>この選挙の前提</h2>
+  <div class="pts">
+    <div class="pt"><b>現職が出馬しない</b><p>高島宗一郎市長は8月に不出馬を表明。4期16年の市政が終わります。</p></div>
+    <div class="pt"><b>過去最多の13人</b><p>これまでの最多は2010年の8人でした。今回の立候補者は全員が新人です。</p></div>
+    <div class="pt"><b>県政問題が背景に</b><p>福岡県議会の金銭授受疑惑が、複数の候補者の発言に出てきます。</p></div>
+  </div>
+  <p class="note">候補者の色は50音順の識別用で、政党や立場とは関係ありません。報道と公表資料の事実だけを出典付きで載せ、評価や予想は載せません。確定情報は11/2頃に市選管が公開する名簿・選挙公報で更新します。</p>
+</section>
+
+<section id="cands">
+  <h2><small>Candidates</small>候補者 <span id="cn" style="font-family:var(--font-num)"></span></h2>
+  <p class="lead">カードを押すと、経歴・公約・発言・公式サイトが開きます。並びは50音順です。</p>
+  <div class="ctl">
+    <input type="search" id="q" placeholder="名前・経歴・公約で検索" aria-label="検索">
+    <button class="chip" data-f="all" aria-pressed="true">すべて</button>
+    <button class="chip" data-f="has" aria-pressed="false">公約を収集済み</button>
+    <button class="chip" data-f="no" aria-pressed="false">公約が未収集</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="issues">
+  <h2><small>Issues</small>争点ヒートマップ</h2>
+  <p class="lead">横が候補者、縦が分野です。数字は収集済みの公約の件数で、色のあるマスが「言及あり」です。空白は「未収集」で、「語っていない」という意味ではありません。マスを押すと候補者の詳細が開きます。</p>
+  <div class="hm"><table id="hm"></table></div>
+  <h2 style="margin-top:30px;font-size:24px">分野ごとの公約と、市の計画の数字</h2>
+  <p class="lead">各分野の上段は、第10次基本計画と都市計画マスタープランが置いている現状値と目標値です。</p>
+  <div class="tcs" id="tcs"></div>
+</section>
+
+<section id="plans">
+  <h2><small>City plans</small>市の計画を数字で見る</h2>
+  <p class="lead">福岡市が公表している目標値です。バーは、現状値が目標値のどこにあるかを示します。</p>
+  <div class="bars" id="bars"></div>
+  <h3 style="margin:26px 0 0;font-size:18px">計画の年表</h3>
+  <div class="tl" id="tl"></div>
+  <p class="lead" style="margin-top:6px"><a href="https://mandrill-fukuoka.github.io/fukuoka-mayor-2026/masterplan.html">福岡市マスタープラン解説(詳しい版)を読む</a></p>
+</section>
+
+<section id="history">
+  <h2><small>Past elections</small>過去の福岡市長選</h2>
+  <div class="hist">
+    <div class="bx"><h3>立候補者数</h3><div class="cols" id="h-cand"></div></div>
+    <div class="bx"><h3>投票率(%)</h3><div class="cols" id="h-turn"></div></div>
+  </div>
+  <p class="lead" style="margin-top:8px">投票率は、2010年の数字を確認できていないため、2014年以降を載せています。</p>
+</section>
+
+<section id="log">
+  <h2><small>Statements</small>発言・公約ログ</h2>
+  <div class="ctl">
+    <select id="theme" aria-label="テーマで絞り込み"><option value="">全テーマ</option></select>
+  </div>
+  <div class="tbl"><table class="t">
+    <thead><tr><th>日付</th><th>候補者</th><th>テーマ</th><th>内容(要約)</th><th>媒体</th></tr></thead>
+    <tbody id="stm"></tbody>
+  </table></div>
+  <h3 style="margin:26px 0 0">発言を追加</h3>
+  <form class="add" id="addf">
+    <label>候補者<select id="f-who"></select></label>
+    <label>日付<input type="date" id="f-date" required></label>
+    <label>テーマ<input type="text" id="f-theme" placeholder="例: 財政、再開発、子育て" required></label>
+    <label>媒体<input type="text" id="f-media" placeholder="例: X、会見、公報"></label>
+    <label class="wide">内容(要約)<textarea id="f-text" rows="2" required></textarea></label>
+    <label class="wide">出典URL<input type="text" id="f-url" placeholder="https://"></label>
+    <div class="wide" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button type="submit" class="btn">追加</button>
+      <button type="button" class="btn ghost" id="copy">追加分をJSONでコピー</button>
+      <span id="msg" style="color:var(--sub);font-size:13px"></span>
+    </div>
+  </form>
+  <p style="color:var(--sub);font-size:12.5px">追加した発言は、このブラウザにだけ保存されます。恒久的に反映するときは、JSONをコピーしてClaudeに渡してください。</p>
+</section>
+
+</main>
+
+<footer id="src"><div class="wrap">
+  <b style="color:var(--mast-ink);font-size:16px">出典と方針</b>
+  <ul>
+    <li><a href="https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/shicho_koho.html">福岡市 候補者情報・選挙公報</a></li>
+    <li><a href="https://data-max.co.jp/topic/fukuoka-shichousen/">DATA MAX 福岡市長選 特集</a></li>
+    <li><a href="https://kumanichi.com/articles/2037422">熊本日日新聞(共同) 福岡市長選に最多8人表明</a></li>
+    <li><a href="https://www.data-max.co.jp/article/87739">DATA MAX 福岡市長選が告示(11/1)</a></li>
+    <li><a href="https://kbc.co.jp/election/">KBC選挙サイト 福岡市長選挙2026</a></li>
+    <li><a href="https://kantanagasawa.com/candidates.html">永澤幹太氏のサイト(公式サイト一覧)</a></li>
+    <li><a href="https://senkyonavi.jp/senkyo/40130-h.html">選挙ナビ 福岡市長選挙2026</a></li>
+  </ul>
+  <p>事実と発言の要約のみを記録し、思想ラベルや評価は載せません。出典のない情報は載せません。公式サイトのURLは第三者の一覧にもとづき、個別の確認は済んでいません。</p>
+  <p>このページは、特定の候補者の当選・落選を目的とせず、公開情報を整理して市民の判断材料にするための、個人運営の非営利ページです。誤りや修正のご指摘は <a href="https://github.com/mandrill-fukuoka/fukuoka-mayor-2026/issues">GitHubのIssues</a> へお願いします。</p>
+</div></footer>
+
+<div class="dr" id="dr" aria-hidden="true"><div class="pn" id="pn" role="dialog" aria-modal="true" aria-label="候補者の詳細"></div></div>
+
+<script>
+
+var DM='https://data-max.co.jp/topic/fukuoka-shichousen/';
+var CANDS=[
+ {x:'https://x.com/inatomishuji',site:'https://www.inatomi.jp/',id:'inatomi',name:'稲富 修二',kana:'いなとみ しゅうじ',party:'無所属',tags:['前衆院議員','完全無所属を表明'],age:'',
+  job:'前衆議院議員(4期)',
+  bio:'福岡県大野城市出身。東京大学法学部卒、米コロンビア大学大学院修了。丸紅勤務、松下政経塾を経て、2007年福岡県知事選に無所属で出馬し落選。2009年衆院選(福岡2区)で民主党から初当選し4期。2026年2月の衆院選は中道改革連合の公認で出馬して落選、9月に離党。',
+  support:'推薦依頼は行わない方針',url:'https://data-max.co.jp/article/87382'},
+ {x:'https://x.com/sasaki_ayano_',site:'https://sasaki-ayano.jp/',id:'sasaki',name:'佐々木 彩乃',kana:'ささき あやの',party:'無所属',tags:['新人','経営コンサル出身'],age:'29',
+  job:'一般社団法人カタリスト九州 代表理事',
+  bio:'長崎県出身。九州大学法学部卒、ボストン・コンサルティング・グループ入社。退社後、企業誘致やアジア進出を支援する法人を設立。Davos50に選出、2025年ダボス会議に参加。',
+  support:'',url:'https://kumanichi.com/articles/2037422'},
+ {x:'https://x.com/yoshitomi3keiko',site:'https://yoshitomikeiko.jp/',id:'yoshitomi',name:'吉富 景子',kana:'よしとみ けいこ',party:'無所属',tags:['参政党推薦','眼科医'],age:'',
+  job:'眼科医',
+  bio:'9/29に立候補を表明。参政党と政策協定を結び、神谷宗幣代表から推薦状を受け取った。',
+  support:'参政党(推薦・政策協定)',url:DM},
+ {x:'https://x.com/moriken0119',site:'https://moriken3.com/',id:'mori',name:'森 健太郎',kana:'もり けんたろう',party:'日本保守党擁立',tags:['新人','AIエンジニア'],age:'48',
+  job:'AIエンジニア(タクシー配車アプリ「GO」関連)',bio:'9/18に市役所で会見し、日本保守党の公認候補として立候補を表明。',support:'日本保守党(公認)',url:DM},
+ {site:'https://niimuramasaru.com/',id:'shimmura',name:'新村 優',kana:'しんむら まさる',party:'無所属',tags:['元市議'],age:'46',
+  job:'元福岡市議',bio:'市議として立候補を表明。「市民の声を集める市長」を掲げる。',support:'',x:'https://x.com/masaru_niimura',url:DM+'1'},
+ {site:'https://www.t-shirabe.net/',id:'shirabe',name:'調 崇史',kana:'しらべ たかし',party:'無所属(自民市議団が擁立)',tags:['元市議','自民市議団が擁立'],age:'48',
+  job:'元福岡市議(4期)',
+  bio:'福岡市城南区出身。修猷館高校、九州大学法学部卒。2002年テレビ西日本入社、報道記者を経て退社し、元市長の秘書。2011年から福岡市議。2015年に民主党から自民党入り。',
+  support:'自民党福岡市議団が擁立。党本部への推薦を求める意向(9/11時点)。10/4の後援会事務所開きに自民系国会議員・糸島市長らが出席。告示日の報道では、自民党は推薦しなかったとされる(DATA MAX 11/1)',url:'https://data-max.co.jp/article/86785'},
+ {x:'https://x.com/FbD3ATtLBOcH2rx',site:'https://abehideki.com/',id:'abe',name:'阿部 秀樹',kana:'あべ ひでき',party:'',tags:['元市議'],age:'31',
+  job:'元福岡市議',bio:'9/18時点で立候補を表明した一人。',support:'',url:'https://kumanichi.com/articles/2037422'},
+ {x:'https://x.com/watanabehisayaf',site:'https://watanabehisaya.politics.blog/',id:'watanabe',name:'渡辺 久也',kana:'わたなべ ひさや',party:'無所属',tags:['元経産官僚'],age:'58',
+  job:'貿易会社経営(元経済産業省官僚)',bio:'9月前半に会見を開いて立候補を表明。',support:'',url:'https://data-max.co.jp/article/86997'},
+ {site:'https://kokoro-party.com/election2026/',id:'aramaki',name:'荒牧 明楽',kana:'あらまき あきら',party:'こころ党(諸派)',tags:['新人'],age:'41',
+  job:'民間教育機関講師・団体代表',bio:'9月前半に立候補を表明。',support:'',url:'https://data-max.co.jp/article/86997'},
+ {x:'https://x.com/kiyoshi_inoue_',site:'https://genzeinippon.com/member/inouekiyoshi/',id:'inoue',name:'井上 潔',kana:'いのうえ きよし',party:'減税日本',tags:['新人','行政書士','減税日本公認'],age:'56',
+  job:'行政書士',bio:'9/14に地域政党「減税日本」の公認で立候補を表明。',support:'減税日本(公認)',url:'https://kumanichi.com/articles/2035671'},
+ {x:'https://x.com/sumiko_katayama',site:'https://katayamasumiko.com/',id:'katayama',name:'片山 純子',kana:'',party:'',tags:['市民活動家'],age:'',
+  job:'市民活動家',bio:'高島市政からの転換を訴えて立候補を表明。',support:'',url:DM},
+ {x:'https://x.com/Genki_jinno',site:'https://genkijinno.com/',id:'jinno',name:'神野 元基',kana:'じんの もとき',party:'',tags:['新人'],age:'',
+  job:'東明館中学校・高等学校(佐賀県基山町)',bio:'9/24に10人目として立候補を表明。',support:'',url:'https://data-max.co.jp/article/87076'},
+ {site:'https://note.com/nishiwaki_hk',id:'nishiwaki',name:'西脇(氏名確認中)',kana:'',party:'',tags:['届出未確認'],age:'',job:'',bio:'届出未確認。11/1に13人の届け出が報じられた(DATA MAX)が、この人物の氏名は選管の確定名簿(11/2頃公開予定)または報道で確認でき次第、経歴を追記する。',support:'',x:'https://x.com/nishiwaki_hk',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/shicho_koho.html'},
+ {id:'unk1',name:'(確認中)',kana:'',party:'',tags:['告示後に確定'],age:'',job:'',bio:'10/14時点で予定者は13人と報じられた。残りは告示後に名簿から追記。',support:'',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/shicho_koho.html'}
+];
+var STM=[
+ {who:'inatomi',date:'2026-10-13',theme:'政治姿勢',media:'出馬会見',text:'県議会問題を受け、自身も批判は受け止めるとしたうえで「福岡の政治を正す戦い」と位置づけた。',url:'https://data-max.co.jp/article/87382'},
+ {who:'inatomi',date:'2026-10-13',theme:'推薦・支援',media:'出馬会見',text:'どの政党・団体にも推薦依頼は行わないと表明。',url:'https://data-max.co.jp/article/87382'},
+ {who:'inatomi',date:'2026-10-13',theme:'成長戦略',media:'出馬会見',text:'2040年までの10年余りを市の成長にとって大切な期間と位置づけ、眠っている可能性を引き出したいと述べた。',url:'https://data-max.co.jp/article/87382'},
+ {who:'sasaki',date:'2026-09-18',theme:'経済・財政',media:'出馬会見',text:'歴史・文化を受け継ぎつつ、経済成長による税収で暮らしを豊かにしたいと述べた。',url:'https://kumanichi.com/articles/2037422'},
+ {who:'yoshitomi',date:'2026-09-29',theme:'高島市政の評価',media:'出馬会見',text:'高島市政の軌道修正に言及。参政党と政策協定を結んだ。',url:DM},
+ {who:'shirabe',date:'2026-09-11',theme:'政治姿勢',media:'出馬会見',text:'県政をめぐる不信を背景に、政治への信頼回復と政策決定過程・成果の可視化を柱とする「令和の自治体経営モデル」を掲げた。',url:'https://data-max.co.jp/article/86887'},
+ {who:'inoue',date:'2026-09-14',theme:'財政・減税',media:'出馬会見',text:'減税日本の公認で、市民税を5%減税すると訴えた。',url:'https://kumanichi.com/articles/2035671'},
+ {who:'shimmura',date:'2026-09-04',theme:'市民参加',media:'報道',text:'「日本一、市民の声を集める市長に」を掲げて挑戦(見出し)。',url:DM+'1'}
+];
+var SK='https://www.city.fukuoka.lg.jp/soki/kikaku/shisei/fukuokashikihonkosokihonkeikaku/';
+var PLANS=[
+ {name:'第6次基本計画',when:'1988年(昭和63年)策定',note:'現在の基本構想の下で最初の基本計画。区別計画を初めて盛り込んだ。',url:SK+'sougoukeikaku/documents/5_sankou.pdf'},
+ {name:'第7次基本計画',when:'未確認',note:'第6次の構成を引き継いだ。期間と内容は確認中。',url:SK+'sougoukeikaku/documents/5_sankou.pdf'},
+ {name:'第8次基本計画',when:'2003年(平成15年)策定',note:'2012年の改定まで続いた基本計画。内容は確認中。',url:SK+'sougoukeikaku/documents/4_sakuteinituite.pdf'},
+ {name:'福岡市基本構想',when:'2012年12月策定',note:'1987年の制定以来の改定。「住みたい、行きたい、働きたい。アジアの交流拠点都市・福岡」を掲げる4つの都市像。',url:SK+'documents/03_sougoukeikakugaiyou.pdf'},
+ {name:'第9次基本計画',when:'2013〜2022年度(2012年12月策定)',note:'基本戦略は「生活の質の向上と都市の成長の好循環」。8つの分野別目標。',url:SK+'documents/03_sougoukeikakugaiyou.pdf'},
+ {name:'政策推進プラン(第9次の第2次実施計画)',when:'2017〜2020年度',note:'基本計画を進める4年間の中期計画。',url:'https://www.city.fukuoka.lg.jp/soki/manage/shisei/documents/seisaku_plan.pdf'},
+ {name:'第10次基本計画(現行)',when:'2025〜2034年度',note:'まちづくりの目標と施策を示す10年間の長期計画。',url:SK+'documents/fukuokacity_digest_Japanese.pdf'},
+ {name:'第1次政策推進プラン(現行)',when:'2025〜2028年度',note:'第10次基本計画を進める4年間の中期計画。',url:SK+'documents/fukuokacity_digest_Japanese.pdf'},
+ {name:'都市計画マスタープラン(当初)',when:'2001年5月策定、目標年次2010年',note:'全体構想と区別構想の2本立て。',url:'https://www.city.fukuoka.lg.jp/jutaku-toshi/toshikeikaku/machi/toshikeikaku-mp.html'},
+ {name:'都市計画マスタープラン(2014年改定)',when:'2014年5月、目標年次2022年度',note:'6つの視点(交流・活力・活用・快適・環境・安全)と「福岡型のコンパクトな都市」を掲げた。',url:'https://www.city.fukuoka.lg.jp/jutaku-toshi/toshikeikaku/machi/tokeisin/documents/06-sonota-bessatsu1.pdf'},
+ {name:'都市計画マスタープラン(現行)',when:'2026年2月改定、目標年次2034年度',note:'「コンパクトでコントラストのある持続可能な都市」。2025年10月20日〜11月19日にパブコメ(39名・93件)、2026年4月1日に公表。',url:'https://www.city.fukuoka.lg.jp/jutaku-toshi/toshikeikaku/machi/toshikeikaku-mp.html'},
+ {name:'保健福祉総合計画(次期)',when:'2027〜2032年度',note:'素案が2026年6月議会に報告された。',url:'https://www.city.fukuoka.lg.jp/gikaizimukyoku/giji/shisei/documents/20260617_houkoku_fukushi2.pdf'}
+];
+var DX='https://data-max.co.jp/article/';
+var THEMES=[
+ {k:'life',name:'福祉・住まい・暮らし',plan:'第10次基本計画 目標1。市民意識「福祉で安心して暮らせる」60.5%。次期保健福祉総合計画は2027〜2032年度。'},
+ {k:'kids',name:'子ども・若者・教育',plan:'目標2。市民意識「子育て環境」63.5%、「子どもが健やかに育つ」56.9%。政策推進プランの目標例は産後ケア6,043→26,300人日、子ども食堂の中学校区充足率79.7%→92%。'},
+ {k:'safe',name:'地域・防災・安全',plan:'目標3。市民意識「災害への備え」62.9%。浸水対策重点地区の整備完了は71→93地区(2028年度)。'},
+ {k:'green',name:'環境・みどり・公園',plan:'目標4。市民意識「花や緑の潤い」85.7%。全市域のみどり18,984ha以上を維持(2034年)。2040年度に温室効果ガス排出量実質ゼロ。'},
+ {k:'tour',name:'観光・歴史・文化',plan:'目標5。入込観光客数2,309万人→2,600万人(2028年度)。文化芸術を鑑賞する市民61.2%→75%。'},
+ {k:'city',name:'交通・都心・まちづくり',plan:'目標6と都市計画マスタープラン(2026年2月改定)。鉄道・バス乗車人員118万→125万人(2028年度)。都心循環BRT、都市高速の空港線延伸。'},
+ {k:'econ',name:'経済・産業・税・家計',plan:'目標7。市民意識「チャレンジしやすい」53.3%。地場中小企業の競争力強化、農林水産業、スタートアップ都市づくり。'},
+ {k:'intl',name:'国際・外国人・広域',plan:'目標8。港湾・空港を核としたゲートウェイ、グローバル人材が暮らしやすいまちづくり、国際会議の誘致。'},
+ {k:'gov',name:'市政運営・県政問題・信頼回復',plan:'計画の横断テーマ。基本計画は市民意識と事業の進捗をPDCAで評価し、公表する。'}
+];
+var ORDER=['abe','aramaki','inatomi','inoue','katayama','jinno','sasaki','shirabe','shimmura','nishiwaki','mori','yoshitomi','watanabe'];
+var PLEDGES=[
+ {who:'inatomi',k:'econ',text:'緊急の物価高対策として補正予算案の編成に取り組む。',date:'2026-10-13',url:DX+'87382'},
+ {who:'inatomi',k:'intl',text:'「副首都・福岡」の実現を掲げる。',date:'2026-10-13',url:DX+'87382'},
+ {who:'inatomi',k:'kids',text:'「人への投資」の拡充を掲げる。',date:'2026-10-13',url:DX+'87382'},
+ {who:'inatomi',k:'gov',text:'県議会問題を受けて「福岡の政治を正す戦い」と位置づけ、どの政党・団体にも推薦依頼は行わないとした。',date:'2026-10-13',url:DX+'87382'},
+ {who:'shirabe',k:'gov',text:'県政をめぐる不信を背景に、政治への信頼回復と、政策決定過程・成果の可視化を柱とする「令和の自治体経営モデル」を掲げる。県議会の疑惑は徹底した真相解明と再発防止を求める。',date:'2026-09-11',url:DX+'86887'},
+ {who:'shirabe',k:'econ',text:'人口減少局面を見据えた産業構造の転換と高付加価値産業の育成に取り組む。',date:'2026-09-11',url:DX+'86887'},
+ {who:'shirabe',k:'life',text:'地域間格差への対応を重視し、高齢シングル女性の支援など多様な生き方を選んだ人へのケアに取り組む。',date:'2026-09-11',url:DX+'86887'},
+ {who:'shimmura',k:'gov',text:'「日本一、市民の声を集める市長に」を掲げる。',date:'2026-09-04',url:DX+'86888'},
+ {who:'shimmura',k:'econ',text:'歴史・文化や人情を重視しつつ、スタートアップやアジアの拠点都市づくりをさらに発展させる方針(記者の記述)。',date:'2026-10-25',url:DX+'87647'},
+ {who:'watanabe',k:'gov',text:'地方行政制度の改革を提案したい考えで、自治体の組織のあり方から見直す(RKB・日経の報道)。',date:'2026-09',url:'https://www.fukuoka-now.com/en/?p=179365'},
+ {who:'mori',k:'gov',text:'「腐敗ゼロ」を掲げ、福岡県議会の一連の問題を指摘。市のワンヘルス推進宣言の撤回と市長報酬の見直しを訴える。',date:'2026-09-18',url:DX+'87051'},
+ {who:'mori',k:'city',text:'「交通課題ゼロ」を掲げる。',date:'2026-09-18',url:DX+'87051'},
+ {who:'mori',k:'intl',text:'「移民拡大ゼロ」を掲げる。',date:'2026-09-18',url:DX+'87051'},
+ {who:'yoshitomi',k:'econ',text:'飲食料品の消費税1%への引き下げに伴う飲食店支援。公共事業を地場企業に発注し、利益が市内で循環する仕組みをつくる。',date:'2026-09-29',url:DX+'87156'},
+ {who:'yoshitomi',k:'intl',text:'外国人受け入れ政策を見直し、行政コストのデータをもとに国へ提言する。',date:'2026-09-29',url:DX+'87156'},
+ {who:'yoshitomi',k:'kids',text:'小学校低学年でのデジタル教材の使用を制限する。学校給食は地元農産物を5割以上とし、有機農産物を増やす。',date:'2026-09-29',url:DX+'87156'},
+ {who:'yoshitomi',k:'gov',text:'高島市政の成長は評価しつつ「本当に福岡市民の生活は豊かになったのか」と疑問を示し、軌道修正に言及。参政党と政策協定を結んだ。',date:'2026-09-29',url:DX+'87156'},
+ {who:'inoue',k:'econ',text:'市民税を5%減税すると訴える(減税日本公認)。',date:'2026-09-14',url:'https://kumanichi.com/articles/2035671'},
+ {who:'katayama',k:'green',text:'福岡市が進める「Park-PFI」の見直しを掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {who:'katayama',k:'gov',text:'急増する非正規公務員の処遇改善を掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {who:'katayama',k:'life',text:'家賃補助制度の創設を掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {who:'katayama',k:'city',text:'福岡市交通局によるコミュニティバスの運行を掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {who:'sasaki',k:'econ',text:'経済成長による税収で暮らしを豊かにしたいと述べた。',date:'2026-09-18',url:'https://kumanichi.com/articles/2037422'},
+ {who:'sasaki',k:'tour',text:'歴史・文化を受け継ぐことを掲げる(経済成長による税収で暮らしを豊かにする方針と合わせて述べた)。',date:'2026-09-18',url:'https://kumanichi.com/articles/2037422'}
+];
+
+var LS='fukuoka-mayor-db-extra';
+var extra=[];
+try{extra=JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){extra=[]}
+var $=function(i){return document.getElementById(i)};
+var byId={};CANDS.forEach(function(c){byId[c.id]=c});
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function all(){return STM.concat(extra)}
+function cands(){return ORDER.filter(function(id){return byId[id]}).map(function(id){return byId[id]})}
+function color(id){var i=ORDER.indexOf(id);if(i<0)i=0;return 'hsl('+Math.round(i*360/13+8)+',52%,38%)'}
+function nm(c){return c.name.replace(/\s/g,'')}
+function pledgesOf(id){return PLEDGES.filter(function(p){return p.who===id})}
+function stmOf(id){return all().filter(function(s){return s.who===id})}
+function mono(c){return '<span class="mono" style="--c:'+color(c.id)+'">'+esc(nm(c).charAt(0))+'</span>'}
+
+/* masthead numbers */
+(function(){
+  var t=new Date('2026-11-15T00:00:00+09:00').getTime(),n=Date.now();
+  var d=Math.ceil((t-n)/86400000);
+  $('days').textContent=d>0?d:0;
+  if(d<=0){document.querySelector('.count .l').textContent='投開票日は 11/15(日)'}
+  $('s-cand').textContent=cands().length;
+  $('s-pl').textContent=PLEDGES.length;
+})();
+
+/* candidate grid */
+var filt='all';
+function renderGrid(){
+  var q=$('q').value.trim();
+  var cs=cands().filter(function(c){
+    var np=pledgesOf(c.id).length;
+    if(filt==='has'&&!np)return false;
+    if(filt==='no'&&np)return false;
+    if(!q)return true;
+    var hay=[c.name,c.kana,c.job,c.bio,c.party,c.support,c.tags.join(' ')].join(' ')+pledgesOf(c.id).map(function(p){return p.text}).join(' ')+stmOf(c.id).map(function(s){return s.text}).join(' ');
+    return hay.indexOf(q)>-1;
+  });
+  $('cn').textContent=cs.length+'/'+cands().length;
+  $('grid').innerHTML=cs.length?cs.map(function(c){
+    var np=pledgesOf(c.id).length,ns=stmOf(c.id).length;
+    return '<button class="cc" style="--c:'+color(c.id)+'" data-id="'+c.id+'"><span class="sq">'+esc(nm(c).charAt(0))+'</span><div class="tx"><h3>'+esc(nm(c))+'</h3><div class="kana">'+esc(c.kana||'')+'</div>'+
+      '<div class="role">'+esc(c.job||'経歴は確認中')+'</div>'+
+      '<div class="meta">'+(c.party?'<span class="tag party">'+esc(c.party)+'</span>':'')+(c.age?'<span class="tag">'+esc(c.age)+'歳</span>':'')+'</div>'+
+      '<div class="nums"><span><b>'+np+'</b>公約</span><span><b>'+ns+'</b>発言</span><span><b>'+((c.site?1:0)+(c.x?1:0))+'</b>リンク</span></div></div></button>';
+  }).join(''):'<div class="empty">該当する候補者がいません。</div>';
+  document.querySelectorAll('.cc').forEach(function(b){b.onclick=function(){openDr(b.dataset.id)}});
+}
+$('q').oninput=renderGrid;
+document.querySelectorAll('.chip').forEach(function(b){b.onclick=function(){
+  filt=b.dataset.f;document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});renderGrid();}});
+
+/* drawer */
+function openDr(id){
+  var c=byId[id];if(!c)return;
+  var ps=pledgesOf(id),ss=stmOf(id).sort(function(a,b){return a.date<b.date?1:-1});
+  var links=[];
+  if(c.site)links.push('<a href="'+esc(c.site)+'">公式サイト</a>');
+  if(c.x)links.push('<a href="'+esc(c.x)+'">公式X</a>');
+  links.push('<a href="'+esc(c.url)+'">主な出典</a>');
+  $('pn').style.setProperty('--c',color(id));
+  $('pn').innerHTML='<div class="hd">'+mono(c)+'<div><h3>'+esc(nm(c))+'</h3><div style="font-size:12px;color:var(--sub)">'+esc(c.kana||'')+'</div></div><button class="x" id="dx" aria-label="閉じる">×</button></div><div class="bd">'+
+   '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
+   '<h4>公約('+ps.length+'件)</h4>'+(ps.length?'<ul>'+ps.map(function(p){var t=THEMES.filter(function(x){return x.k===p.k})[0]||{name:p.k};return '<li><span class="tag">'+esc(t.name)+'</span> '+esc(p.text)+' <a href="'+esc(p.url)+'">出典</a></li>'}).join('')+'</ul>':'<div class="empty">収集済みの公約はまだありません。選挙公報の公開後に更新します。</div>')+
+   '<h4>発言('+ss.length+'件)</h4>'+(ss.length?'<ul>'+ss.map(function(s){return '<li><span class="tag">'+esc(s.theme)+'</span> '+esc(s.text)+' <small style="color:var(--sub)">'+esc(s.date)+'</small>'+(s.url?' <a href="'+esc(s.url)+'">出典</a>':'')+'</li>'}).join('')+'</ul>':'<div class="empty">未収集です。</div>')+'</div>';
+  $('dr').classList.add('open');$('dr').setAttribute('aria-hidden','false');
+  $('dx').onclick=closeDr;$('dx').focus();
+}
+function closeDr(){$('dr').classList.remove('open');$('dr').setAttribute('aria-hidden','true')}
+$('dr').onclick=function(e){if(e.target===$('dr'))closeDr()};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDr()});
+
+/* heatmap */
+function renderHm(){
+  var cs=cands();
+  var head='<thead><tr><th style="text-align:left;padding-left:12px">分野</th>'+cs.map(function(c){return '<th><div class="m" style="--c:'+color(c.id)+'">'+esc(nm(c).charAt(0))+'</div>'+esc(nm(c).slice(0,4))+'</th>'}).join('')+'</tr></thead>';
+  var rows=THEMES.map(function(t){
+    return '<tr><th scope="row">'+esc(t.name)+'</th>'+cs.map(function(c){
+      var n=PLEDGES.filter(function(p){return p.who===c.id&&p.k===t.k}).length;
+      return '<td class="'+(n?'on':'off')+'" style="--c:'+color(c.id)+'"><button data-id="'+c.id+'" aria-label="'+esc(nm(c))+' '+esc(t.name)+' '+n+'件">'+(n||'·')+'</button></td>';
+    }).join('')+'</tr>';
+  }).join('');
+  $('hm').innerHTML=head+'<tbody>'+rows+'</tbody>';
+  document.querySelectorAll('#hm td button').forEach(function(b){b.onclick=function(){openDr(b.dataset.id)}});
+}
+
+/* theme cards */
+function renderTc(){
+  var named=cands();
+  $('tcs').innerHTML=THEMES.map(function(t){
+    var ps=PLEDGES.filter(function(p){return p.k===t.k}).sort(function(a,b){return ORDER.indexOf(a.who)-ORDER.indexOf(b.who)});
+    var who={};ps.forEach(function(p){who[p.who]=1});
+    return '<div class="tc"><h3>'+esc(t.name)+'</h3><div class="plan"><b>市の計画</b>　'+esc(t.plan)+'</div>'+
+      (ps.length?'<ul>'+ps.map(function(p){var c=byId[p.who]||{id:p.who,name:p.who};
+        return '<li>'+mono(c)+'<div><span class="who">'+esc(nm(c))+'</span>'+esc(p.text)+' <small>'+esc(p.date)+'</small> <a href="'+esc(p.url)+'">出典</a></div></li>'}).join('')+'</ul>':'<div class="empty">この分野で収集済みの公約はまだありません。</div>')+
+      '<div class="none">この分野で公約を収集済み: '+Object.keys(who).length+'名 / '+named.length+'名</div></div>';
+  }).join('');
+}
+
+/* plan numbers */
+var BARS=[
+ {lab:'入込観光客数(2023→2028年度)',a:2309,b:2600,u:'万人',max:2600},
+ {lab:'1日の鉄道・バス乗車人員(2023→2028年度)',a:118,b:125,u:'万人',max:125},
+ {lab:'浸水対策重点地区の整備完了(2023→2028年度)',a:71,b:93,u:'地区',max:93},
+ {lab:'産後ケア延べ利用(→2028年度)',a:6043,b:26300,u:'人日',max:26300},
+ {lab:'子ども食堂の中学校区充足率(→2028年度)',a:79.7,b:92,u:'%',max:100},
+ {lab:'特定健診受診率(→2028年度)',a:28.3,b:37.5,u:'%',max:100}
+];
+function fmt(n){return n.toLocaleString('ja-JP')}
+function renderBars(){
+  $('bars').innerHTML=BARS.map(function(x){
+    return '<div class="bar"><div class="lab">'+esc(x.lab)+'</div><div class="v">'+fmt(x.a)+' <i>→</i> '+fmt(x.b)+'<i> '+esc(x.u)+'</i></div><div class="tr"><span style="width:'+(x.a/x.max*100).toFixed(1)+'%"></span></div><small>バーは現状値。右端が目標値('+fmt(x.max)+')</small></div>';
+  }).join('');
+}
+function renderPlans(){
+  $('tl').innerHTML=PLANS.map(function(p){
+    var now=/現行/.test(p.name)||/第10次/.test(p.name);
+    return '<div class="it'+(now?' now':'')+'"><div class="when">'+esc(p.when)+'</div><div class="nm"><a href="'+esc(p.url)+'">'+esc(p.name)+'</a></div><div class="nt">'+esc(p.note)+'</div></div>';
+  }).join('');
+}
+
+/* history */
+function cols(el,data,max,cur,unit){
+  $(el).innerHTML=data.map(function(d){
+    return '<div class="'+(d[0]===cur?'cur':'')+'"><b>'+d[1]+(unit||'')+'</b><span style="height:'+(d[1]/max*100).toFixed(1)+'%"></span><small>'+d[0]+'</small></div>';
+  }).join('');
+}
+function renderHist(){
+  cols('h-cand',[['2010',8],['2014',6],['2018',2],['2022',3],['2026',13]],13,'2026');
+  cols('h-turn',[['2014',38.79],['2018',31.42],['2022',34.31]],50,'',' ');
+}
+
+/* statements */
+function themes(){var t={};all().forEach(function(s){t[s.theme]=1});return Object.keys(t)}
+function fillSelects(){
+  var cur=$('theme').value;
+  $('theme').innerHTML='<option value="">全テーマ</option>'+themes().map(function(t){return '<option>'+esc(t)+'</option>'}).join('');
+  $('theme').value=cur;
+  $('f-who').innerHTML=cands().map(function(c){return '<option value="'+c.id+'">'+esc(nm(c))+'</option>'}).join('');
+}
+function renderStm(){
+  var th=$('theme').value;
+  var ss=all().filter(function(s){return !th||s.theme===th}).sort(function(a,b){return a.date<b.date?1:-1});
+  $('stm').innerHTML=ss.length?ss.map(function(s){var c=byId[s.who]||{name:s.who};
+    return '<tr><td class="d">'+esc(s.date)+'</td><td>'+esc(nm(c))+'</td><td>'+esc(s.theme)+'</td><td>'+esc(s.text)+(s.url?' <a href="'+esc(s.url)+'">出典</a>':'')+'</td><td>'+esc(s.media)+'</td></tr>'}).join(''):'<tr><td colspan="5" class="empty">該当する発言がありません。</td></tr>';
+}
+$('theme').onchange=renderStm;
+$('addf').onsubmit=function(e){
+  e.preventDefault();
+  extra.push({who:$('f-who').value,date:$('f-date').value,theme:$('f-theme').value.trim(),media:$('f-media').value.trim(),text:$('f-text').value.trim(),url:$('f-url').value.trim()});
+  try{localStorage.setItem(LS,JSON.stringify(extra))}catch(err){}
+  $('f-text').value='';$('f-url').value='';$('msg').textContent='追加しました';
+  fillSelects();renderStm();renderGrid();
+};
+$('copy').onclick=function(){
+  var t=JSON.stringify(extra,null,1);
+  try{navigator.clipboard.writeText(t).then(function(){$('msg').textContent='コピーしました'},function(){$('msg').textContent='コピーできませんでした'})}catch(err){$('msg').textContent='コピーできませんでした'}
+};
+
+fillSelects();renderGrid();renderHm();renderTc();renderBars();renderPlans();renderHist();renderStm();
+</script>
+</body>
+</html>
