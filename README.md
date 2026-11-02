@@ -1,0 +1,1 @@
+# fukuoka-mayor-2026
