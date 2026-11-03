@@ -14,6 +14,7 @@
   --bg:#eef2f5; --card:#ffffff; --ink:#0a2540; --sub:#586a7e; --line:#d5dde5; --soft:#e4ebf1;
   --hi:#00a3a3; --hi-ink:#ffffff; --coral:#e8453c; --blue:#0b63c5; --warn:#8a5a00; --warn-bg:#fbefd2;
   --mast:#ffffff; --mast-ink:#0a2540; --mast-sub:#586a7e;
+  --pos:#0b7a6e; --pos-bg:#dcf2ee; --neg:#a14a00; --neg-bg:#fbe7d4; --neu:#586a7e; --neu-bg:#e4ebf1;
   --font-body:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;
   --font-head:'Shippori Mincho B1','Hiragino Mincho ProN','Yu Mincho',serif;
 }
@@ -22,12 +23,14 @@
     --bg:#0a1520; --card:#112233; --ink:#e7eef5; --sub:#93a6ba; --line:#223548; --soft:#183047;
     --hi:#2cc4c4; --hi-ink:#06222a; --coral:#ff7a70; --blue:#7db4ff; --warn:#f0c46a; --warn-bg:#352b12;
     --mast:#0d1b2a; --mast-ink:#e7eef5; --mast-sub:#93a6ba; color-scheme:dark;
+    --pos:#5fd3c2; --pos-bg:#123a36; --neg:#ffb36b; --neg-bg:#3d2610; --neu:#93a6ba; --neu-bg:#183047;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0a1520; --card:#112233; --ink:#e7eef5; --sub:#93a6ba; --line:#223548; --soft:#183047;
   --hi:#2cc4c4; --hi-ink:#06222a; --coral:#ff7a70; --blue:#7db4ff; --warn:#f0c46a; --warn-bg:#352b12;
   --mast:#0d1b2a; --mast-ink:#e7eef5; --mast-sub:#93a6ba; color-scheme:dark;
+    --pos:#5fd3c2; --pos-bg:#123a36; --neg:#ffb36b; --neg-bg:#3d2610; --neu:#93a6ba; --neu-bg:#183047;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -128,6 +131,10 @@ h2 small{font-family:var(--font-body);font-size:12px;letter-spacing:.14em;color:
 .tc li .who{font-weight:700;display:block;font-size:13px}
 .tc li small{color:var(--sub)}
 .tc .none{color:var(--sub);font-size:12.5px;margin-top:6px}
+.tn{display:inline-block;font-size:11.5px;font-weight:700;padding:0 7px;border-radius:3px;margin-right:6px;white-space:nowrap;vertical-align:1px}
+.tn.pos{color:var(--pos);background:var(--pos-bg)}.tn.neg{color:var(--neg);background:var(--neg-bg)}.tn.neu{color:var(--neu);background:var(--neu-bg)}
+.tbar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--neu-bg);margin:4px 0 2px}.tbar i{display:block}.tbar .pos{background:var(--pos)}.tbar .neg{background:var(--neg)}
+.tlg{font-size:12.5px;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin:0 0 14px}.tlg .tn{margin-left:2px}
 
 /* plan stats */
 .bars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
@@ -250,6 +257,7 @@ footer ul{padding-left:1.2em}
   <div class="hm"><table id="hm"></table></div>
   <h2 style="margin-top:30px;font-size:24px">分野ごとの公約と、市の計画の数字</h2>
   <p class="lead">各分野の上段は、第10次基本計画と都市計画マスタープランが置いている現状値と目標値です。</p>
+  <div class="tlg"><b style="color:var(--ink)">ラベルはAIによる判定(参考)です。</b> 公約の文面が、市のこれまでの施策・実績に対してどの向きかを、次の基準で全公約に同じように付けています。<br><span class="tn pos">継続・評価</span>現行の市の施策を継承・拡充・維持する、または実績を評価すると明記しているもの　<span class="tn neg">見直し・批判</span>現行の市の施策・制度の見直し・撤回・停止・転換や、市政への批判を明記しているもの　<span class="tn neu">新規・その他</span>新しい提案や、市の現行施策への賛否が文面から読み取れないもの<br>判定は文面だけにもとづき、公約の良し悪しや実現性の評価ではありません。誤りのご指摘はIssuesへ。</div>
   <div class="tcs" id="tcs"></div>
 </section>
 
@@ -334,7 +342,7 @@ footer ul{padding-left:1.2em}
     <li><a href="https://news.tnc.co.jp/news/articles/NID2026110232671">TNCテレビ西日本 13人の第一声(11/2)</a></li>
     <li><a href="https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897">朝日新聞 告示日の訴え(Yahoo!ニュース)</a></li>
   </ul>
-  <p>事実と発言の要約のみを記録し、思想ラベルや評価は載せません。出典のない情報は載せません。公式サイトのURLは第三者の一覧にもとづき、個別の確認は済んでいません。</p>
+  <p>事実と発言の要約のみを記録し、思想ラベルや評価は載せません(例外として、公約欄の「継続・評価/見直し・批判/新規・その他」は、文面にもとづくAIの参考判定で、基準を公約欄に明記しています)。出典のない情報は載せません。公式サイトのURLは第三者の一覧にもとづき、個別の確認は済んでいません。</p>
   <p>このページは、特定の候補者の当選・落選を目的とせず、公開情報を整理して市民の判断材料にするための、個人運営の非営利ページです。誤りや修正のご指摘は <a href="https://github.com/mandrill-fukuoka/fukuoka-mayor-2026/issues">GitHubのIssues</a> へお願いします。</p>
 </div></footer>
 
@@ -440,89 +448,89 @@ var THEMES=[
 var ORDER=['abe','aramaki','inatomi','inoue','katayama','jinno','sasaki','shirabe','shimmura','nishiwaki','mori','yoshitomi','watanabe'];
 var KH='https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf';
 var PLEDGES=[
- {who:'inatomi',k:'econ',text:'緊急の物価高対策として補正予算案の編成に取り組む。',date:'2026-10-13',url:DX+'87382'},
- {who:'inatomi',k:'intl',text:'「副首都・福岡」の実現を掲げる。',date:'2026-10-13',url:DX+'87382'},
- {who:'inatomi',k:'kids',text:'「人への投資」の拡充を掲げる。',date:'2026-10-13',url:DX+'87382'},
- {who:'inatomi',k:'gov',text:'県議会問題を受けて「福岡の政治を正す戦い」と位置づけ、どの政党・団体にも推薦依頼は行わないとした。',date:'2026-10-13',url:DX+'87382'},
- {who:'shirabe',k:'gov',text:'県政をめぐる不信を背景に、政治への信頼回復と、政策決定過程・成果の可視化を柱とする「令和の自治体経営モデル」を掲げる。県議会の疑惑は徹底した真相解明と再発防止を求める。',date:'2026-09-11',url:DX+'86887'},
- {who:'shirabe',k:'econ',text:'人口減少局面を見据えた産業構造の転換と高付加価値産業の育成に取り組む。',date:'2026-09-11',url:DX+'86887'},
- {who:'shirabe',k:'life',text:'地域間格差への対応を重視し、高齢シングル女性の支援など多様な生き方を選んだ人へのケアに取り組む。',date:'2026-09-11',url:DX+'86887'},
- {who:'shimmura',k:'gov',text:'「日本一、市民の声を集める市長に」を掲げる。',date:'2026-09-04',url:DX+'86888'},
- {who:'shimmura',k:'econ',text:'歴史・文化や人情を重視しつつ、スタートアップやアジアの拠点都市づくりをさらに発展させる方針(記者の記述)。',date:'2026-10-25',url:DX+'87647'},
- {who:'watanabe',k:'gov',text:'地方行政制度の改革を提案したい考えで、自治体の組織のあり方から見直す(RKB・日経の報道)。',date:'2026-09',url:'https://www.fukuoka-now.com/en/?p=179365'},
- {who:'mori',k:'gov',text:'「腐敗ゼロ」を掲げ、福岡県議会の一連の問題を指摘。市のワンヘルス推進宣言の撤回と市長報酬の見直しを訴える。',date:'2026-09-18',url:DX+'87051'},
- {who:'mori',k:'city',text:'「交通課題ゼロ」を掲げる。',date:'2026-09-18',url:DX+'87051'},
- {who:'mori',k:'intl',text:'「移民拡大ゼロ」を掲げる。',date:'2026-09-18',url:DX+'87051'},
- {who:'yoshitomi',k:'econ',text:'飲食料品の消費税1%への引き下げに伴う飲食店支援。公共事業を地場企業に発注し、利益が市内で循環する仕組みをつくる。',date:'2026-09-29',url:DX+'87156'},
- {who:'yoshitomi',k:'intl',text:'外国人受け入れ政策を見直し、行政コストのデータをもとに国へ提言する。',date:'2026-09-29',url:DX+'87156'},
- {who:'yoshitomi',k:'kids',text:'小学校低学年でのデジタル教材の使用を制限する。学校給食は地元農産物を5割以上とし、有機農産物を増やす。',date:'2026-09-29',url:DX+'87156'},
- {who:'yoshitomi',k:'gov',text:'高島市政の成長は評価しつつ「本当に福岡市民の生活は豊かになったのか」と疑問を示し、軌道修正に言及。参政党と政策協定を結んだ。',date:'2026-09-29',url:DX+'87156'},
- {who:'inoue',k:'econ',text:'市民税を5%減税すると訴える(減税日本公認)。',date:'2026-09-14',url:'https://kumanichi.com/articles/2035671'},
- {who:'katayama',k:'green',text:'福岡市が進める「Park-PFI」の見直しを掲げる。',date:'2026-09-26',url:DX+'87114'},
- {who:'katayama',k:'gov',text:'急増する非正規公務員の処遇改善を掲げる。',date:'2026-09-26',url:DX+'87114'},
- {who:'katayama',k:'life',text:'家賃補助制度の創設を掲げる。',date:'2026-09-26',url:DX+'87114'},
- {who:'katayama',k:'city',text:'福岡市交通局によるコミュニティバスの運行を掲げる。',date:'2026-09-26',url:DX+'87114'},
- {who:'sasaki',k:'econ',text:'経済成長による税収で暮らしを豊かにしたいと述べた。',date:'2026-09-18',url:'https://kumanichi.com/articles/2037422'},
- {who:'sasaki',k:'tour',text:'歴史・文化を受け継ぐことを掲げる(経済成長による税収で暮らしを豊かにする方針と合わせて述べた)。',date:'2026-09-18',url:'https://kumanichi.com/articles/2037422'},
- {who:'aramaki',k:'econ',text:'法人市民税の減税と、教育・創業融資を組み合わせた「教育経済エンジン」を掲げる。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
- {who:'mori',k:'econ',text:'ITを使った無駄の洗い出しによる減税を掲げる。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
- {who:'mori',k:'intl',text:'外国人への生活保護の停止、日本人に限った子育て支援の充実を掲げる。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
- {who:'nishiwaki',k:'life',text:'地価・家賃の上昇による住居費の負担に対策が必要とし、各事業と予算配分を見直して、都市の成長の恩恵を市民に還元する考えを示した。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
- {who:'abe',k:'city',text:'交通渋滞を課題に挙げ、通勤時間の短縮を訴える(告示日の第一声)。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
- {who:'nishiwaki',k:'safe',text:'防災に取り組むと述べた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
- {who:'nishiwaki',k:'city',text:'地域の交通課題に取り組むと述べた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
- {who:'aramaki',k:'kids',text:'教育を軸に据えると訴えた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
- {who:'jinno',k:'econ',text:'企業集積の成果を市民の暮らしや給料に結びつけると訴えた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
- {who:'inatomi',k:'life',text:'福岡を世界で一番住みやすい都市にしたいと訴えた(告示日の第一声)。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
- {who:'sasaki',k:'econ',text:'人手不足と物価高に悩む中小企業を支え、世界に挑戦する福岡の企業を後押しする。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'sasaki',k:'safe',text:'警固断層をはじめとする大地震に備え、猛暑と豪雨から命と暮らしを守る。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'sasaki',k:'city',text:'地下鉄やバスの環境を改善する。県・北九州市と力を合わせて副首都をつくり福岡を成長させる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'sasaki',k:'life',text:'必要な医療が届き、介護する人も受ける人も安心して暮らせる福岡を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'katayama',k:'econ',text:'中小企業支援で働く人の賃金アップを掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'katayama',k:'life',text:'保育・福祉・介護の充実(ケア労働にもっとお金を)を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'aramaki',k:'kids',text:'教えられる教育から自ら問いを立てる教育へ転換する。第1子から子育て支援を充実させ負担を軽減する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'aramaki',k:'life',text:'孤独を減らし、必要なときに人や地域とつながれる仕組みをつくる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'aramaki',k:'city',text:'AIを活用して公共交通を最適化する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'aramaki',k:'econ',text:'「手取りを月100万円に」を掲げ、法人市民税の減税と新しい産業・雇用の創出で所得向上と税収増加の循環をつくる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'inatomi',k:'econ',text:'すぐにやることとして「緊急生活支援プラン」(物価高から暮らしと経営を守る、下水道使用料の減免、事業者への支援)を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'inatomi',k:'kids',text:'子どもの学びを保障し、若者の挑戦や働く人の学び直しを支える。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'inatomi',k:'gov',text:'市民の声を政策に反映し、税金の使い道と成果が分かる市政を実現する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'inoue',k:'gov',text:'市長の年収を2,200万円から800万円に、4年ごとの退職金4千万円をゼロにする。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'inoue',k:'kids',text:'常勤スクールカウンセラーを配置する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'inoue',k:'life',text:'高齢者乗車券を充実させ、シニアの外出・健康を応援する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'inoue',k:'city',text:'渋滞を解消し、ストレスのない通勤・通学を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'watanabe',k:'econ',text:'現行の抽選方式の給付ではなく、市民全員に一律給付する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'watanabe',k:'city',text:'交通インフラを見直し、交通渋滞や鉄道の混雑、公共交通空白地を減らす。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'watanabe',k:'safe',text:'下水道の更新を一層強力に進め、陥没事故を未然に防ぐ。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'watanabe',k:'kids',text:'小中学校の先生を増やす。専門技能や知識を習得できる多様な実業高校をつくる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'jinno',k:'kids',text:'子どもの声で学校をつくりつつ先生の負担を減らす。大学・専門学校の学費を支援し、特性や障がいの有無に関わらず学べる教育を実現する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'jinno',k:'life',text:'アフォーダブル住宅と通院・買い物の足で暮らし続けられる地域をつくり、介護・福祉で働く人の負担を減らす。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'jinno',k:'gov',text:'市長の決断と理由をSNSや動画で発信し、各地の対話会で市政の状況を報告する。県・北九州市と協力して副首都の指定も目指す。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'yoshitomi',k:'econ',text:'地場企業への発注と事業承継を支援し、外資優遇の金融特区を見直す。飲食店向けに無利子・無担保の「予防融資」を創設する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'yoshitomi',k:'intl',text:'外国人住民にルール順守を求め、民泊規制と制度の見直しを進める。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'yoshitomi',k:'life',text:'転倒予防と重複服薬の防止に取り組み、市内の介護人材を育てる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'yoshitomi',k:'safe',text:'内水氾濫対策を急ぎ、真夏や真冬でも過ごせる避難所を整備する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'abe',k:'econ',text:'企業誘致やスタートアップ、地場企業の成長支援を推進し、半導体関連など成長産業の集積で所得向上を目指す。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'abe',k:'life',text:'がん検診・歯科健診・5歳児健診など予防医療と、フレイル予防など介護予防を充実させる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'abe',k:'intl',text:'外国人を受け入れる企業や学校に生活ルール教育を求める市独自の条例を制定し、警察と連携して治安維持を図る。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'abe',k:'kids',text:'市独自の出産祝い金と、返済不要の給付型奨学金を創設する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'abe',k:'tour',text:'祭りや伝統芸能の担い手育成、文化財や伝統工芸の保存・継承を支援する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shirabe',k:'city',text:'インフラ投資と公共交通ネットワークの強化で渋滞を解消する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shirabe',k:'kids',text:'母親への伴走型支援、教育現場への投資、障がいや多様な学びが必要な子どもへの支援を高校年次まで行う。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shirabe',k:'life',text:'生活コストの安さや免許返納後の移動手段を維持し、ライフステージに応じた住まいがあり物価高騰を抑えた街を目指す。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shirabe',k:'safe',text:'道路や橋梁など生活に必須のインフラを壊れにくいように更新・改修する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'mori',k:'city',text:'七隈線と空港線を環状線化する。アイランドシティに中央公園駅を新設し、自動運転タクシーを早期導入する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'mori',k:'kids',text:'学校給食の中国産食材を完全にゼロにする。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'nishiwaki',k:'tour',text:'アニメ・漫画テーマパークの誘致、ボートレース収益による基金で音楽・演劇・アート・映像を仕事にする取り組み、W杯決勝ができるスタジアム(大型施設は民間投資)を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'nishiwaki',k:'econ',text:'地元の飲食店で使えるプレミアム食事券を発行する。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'nishiwaki',k:'gov',text:'駅立ち・ビラ配り・ポスター・選挙カーを一切やらずに当選することを掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shimmura',k:'gov',text:'「高島市政の継承と進化」を掲げ、政治の悪しき慣習を断ち切り市民の信頼を取り戻すとする。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shimmura',k:'life',text:'家賃・物価高騰への対策と介護家庭のサポートを掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shimmura',k:'kids',text:'「子育てに優しいまち」を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shimmura',k:'city',text:'ベイエリア構想、FUKUOKA副都心計画、博多駅「筑紫口」エリアのブランド化、地下街を中心とした地下通路構想を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shimmura',k:'safe',text:'「新時代の都市防災」を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shimmura',k:'intl',text:'世界とつながる国際都市、金融都市「FUKUOKA」を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
- {who:'shimmura',k:'tour',text:'歴史・伝統文化を旅する街、世界一のグルメイベントが開催される都市を掲げる。(選挙公報)',date:'2026-11-02',url:KH}
+ {t:'neu',who:'inatomi',k:'econ',text:'緊急の物価高対策として補正予算案の編成に取り組む。',date:'2026-10-13',url:DX+'87382'},
+ {t:'neu',who:'inatomi',k:'intl',text:'「副首都・福岡」の実現を掲げる。',date:'2026-10-13',url:DX+'87382'},
+ {t:'neu',who:'inatomi',k:'kids',text:'「人への投資」の拡充を掲げる。',date:'2026-10-13',url:DX+'87382'},
+ {t:'neu',who:'inatomi',k:'gov',text:'県議会問題を受けて「福岡の政治を正す戦い」と位置づけ、どの政党・団体にも推薦依頼は行わないとした。',date:'2026-10-13',url:DX+'87382'},
+ {t:'neu',who:'shirabe',k:'gov',text:'県政をめぐる不信を背景に、政治への信頼回復と、政策決定過程・成果の可視化を柱とする「令和の自治体経営モデル」を掲げる。県議会の疑惑は徹底した真相解明と再発防止を求める。',date:'2026-09-11',url:DX+'86887'},
+ {t:'neu',who:'shirabe',k:'econ',text:'人口減少局面を見据えた産業構造の転換と高付加価値産業の育成に取り組む。',date:'2026-09-11',url:DX+'86887'},
+ {t:'neu',who:'shirabe',k:'life',text:'地域間格差への対応を重視し、高齢シングル女性の支援など多様な生き方を選んだ人へのケアに取り組む。',date:'2026-09-11',url:DX+'86887'},
+ {t:'neu',who:'shimmura',k:'gov',text:'「日本一、市民の声を集める市長に」を掲げる。',date:'2026-09-04',url:DX+'86888'},
+ {t:'pos',who:'shimmura',k:'econ',text:'歴史・文化や人情を重視しつつ、スタートアップやアジアの拠点都市づくりをさらに発展させる方針(記者の記述)。',date:'2026-10-25',url:DX+'87647'},
+ {t:'neg',who:'watanabe',k:'gov',text:'地方行政制度の改革を提案したい考えで、自治体の組織のあり方から見直す(RKB・日経の報道)。',date:'2026-09',url:'https://www.fukuoka-now.com/en/?p=179365'},
+ {t:'neg',who:'mori',k:'gov',text:'「腐敗ゼロ」を掲げ、福岡県議会の一連の問題を指摘。市のワンヘルス推進宣言の撤回と市長報酬の見直しを訴える。',date:'2026-09-18',url:DX+'87051'},
+ {t:'neu',who:'mori',k:'city',text:'「交通課題ゼロ」を掲げる。',date:'2026-09-18',url:DX+'87051'},
+ {t:'neu',who:'mori',k:'intl',text:'「移民拡大ゼロ」を掲げる。',date:'2026-09-18',url:DX+'87051'},
+ {t:'neu',who:'yoshitomi',k:'econ',text:'飲食料品の消費税1%への引き下げに伴う飲食店支援。公共事業を地場企業に発注し、利益が市内で循環する仕組みをつくる。',date:'2026-09-29',url:DX+'87156'},
+ {t:'neu',who:'yoshitomi',k:'intl',text:'外国人受け入れ政策を見直し、行政コストのデータをもとに国へ提言する。',date:'2026-09-29',url:DX+'87156'},
+ {t:'neu',who:'yoshitomi',k:'kids',text:'小学校低学年でのデジタル教材の使用を制限する。学校給食は地元農産物を5割以上とし、有機農産物を増やす。',date:'2026-09-29',url:DX+'87156'},
+ {t:'neg',who:'yoshitomi',k:'gov',text:'高島市政の成長は評価しつつ「本当に福岡市民の生活は豊かになったのか」と疑問を示し、軌道修正に言及。参政党と政策協定を結んだ。',date:'2026-09-29',url:DX+'87156'},
+ {t:'neu',who:'inoue',k:'econ',text:'市民税を5%減税すると訴える(減税日本公認)。',date:'2026-09-14',url:'https://kumanichi.com/articles/2035671'},
+ {t:'neg',who:'katayama',k:'green',text:'福岡市が進める「Park-PFI」の見直しを掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {t:'neu',who:'katayama',k:'gov',text:'急増する非正規公務員の処遇改善を掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {t:'neu',who:'katayama',k:'life',text:'家賃補助制度の創設を掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {t:'neu',who:'katayama',k:'city',text:'福岡市交通局によるコミュニティバスの運行を掲げる。',date:'2026-09-26',url:DX+'87114'},
+ {t:'neu',who:'sasaki',k:'econ',text:'経済成長による税収で暮らしを豊かにしたいと述べた。',date:'2026-09-18',url:'https://kumanichi.com/articles/2037422'},
+ {t:'neu',who:'sasaki',k:'tour',text:'歴史・文化を受け継ぐことを掲げる(経済成長による税収で暮らしを豊かにする方針と合わせて述べた)。',date:'2026-09-18',url:'https://kumanichi.com/articles/2037422'},
+ {t:'neu',who:'aramaki',k:'econ',text:'法人市民税の減税と、教育・創業融資を組み合わせた「教育経済エンジン」を掲げる。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
+ {t:'neu',who:'mori',k:'econ',text:'ITを使った無駄の洗い出しによる減税を掲げる。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
+ {t:'neu',who:'mori',k:'intl',text:'外国人への生活保護の停止、日本人に限った子育て支援の充実を掲げる。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
+ {t:'neg',who:'nishiwaki',k:'life',text:'地価・家賃の上昇による住居費の負担に対策が必要とし、各事業と予算配分を見直して、都市の成長の恩恵を市民に還元する考えを示した。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/0045b6e6cc1d4e8be9db55818993e8744c8c1fc7'},
+ {t:'neu',who:'abe',k:'city',text:'交通渋滞を課題に挙げ、通勤時間の短縮を訴える(告示日の第一声)。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {t:'neu',who:'nishiwaki',k:'safe',text:'防災に取り組むと述べた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
+ {t:'neu',who:'nishiwaki',k:'city',text:'地域の交通課題に取り組むと述べた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
+ {t:'neu',who:'aramaki',k:'kids',text:'教育を軸に据えると訴えた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
+ {t:'pos',who:'jinno',k:'econ',text:'企業集積の成果を市民の暮らしや給料に結びつけると訴えた(告示日の第一声)。',date:'2026-11-01',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'},
+ {t:'neu',who:'inatomi',k:'life',text:'福岡を世界で一番住みやすい都市にしたいと訴えた(告示日の第一声)。',date:'2026-11-01',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {t:'neu',who:'sasaki',k:'econ',text:'人手不足と物価高に悩む中小企業を支え、世界に挑戦する福岡の企業を後押しする。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'sasaki',k:'safe',text:'警固断層をはじめとする大地震に備え、猛暑と豪雨から命と暮らしを守る。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'sasaki',k:'city',text:'地下鉄やバスの環境を改善する。県・北九州市と力を合わせて副首都をつくり福岡を成長させる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'sasaki',k:'life',text:'必要な医療が届き、介護する人も受ける人も安心して暮らせる福岡を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'katayama',k:'econ',text:'中小企業支援で働く人の賃金アップを掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'katayama',k:'life',text:'保育・福祉・介護の充実(ケア労働にもっとお金を)を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'aramaki',k:'kids',text:'教えられる教育から自ら問いを立てる教育へ転換する。第1子から子育て支援を充実させ負担を軽減する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'aramaki',k:'life',text:'孤独を減らし、必要なときに人や地域とつながれる仕組みをつくる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'aramaki',k:'city',text:'AIを活用して公共交通を最適化する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'aramaki',k:'econ',text:'「手取りを月100万円に」を掲げ、法人市民税の減税と新しい産業・雇用の創出で所得向上と税収増加の循環をつくる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'inatomi',k:'econ',text:'すぐにやることとして「緊急生活支援プラン」(物価高から暮らしと経営を守る、下水道使用料の減免、事業者への支援)を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'inatomi',k:'kids',text:'子どもの学びを保障し、若者の挑戦や働く人の学び直しを支える。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'inatomi',k:'gov',text:'市民の声を政策に反映し、税金の使い道と成果が分かる市政を実現する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neg',who:'inoue',k:'gov',text:'市長の年収を2,200万円から800万円に、4年ごとの退職金4千万円をゼロにする。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'inoue',k:'kids',text:'常勤スクールカウンセラーを配置する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'pos',who:'inoue',k:'life',text:'高齢者乗車券を充実させ、シニアの外出・健康を応援する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'inoue',k:'city',text:'渋滞を解消し、ストレスのない通勤・通学を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neg',who:'watanabe',k:'econ',text:'現行の抽選方式の給付ではなく、市民全員に一律給付する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neg',who:'watanabe',k:'city',text:'交通インフラを見直し、交通渋滞や鉄道の混雑、公共交通空白地を減らす。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'pos',who:'watanabe',k:'safe',text:'下水道の更新を一層強力に進め、陥没事故を未然に防ぐ。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'watanabe',k:'kids',text:'小中学校の先生を増やす。専門技能や知識を習得できる多様な実業高校をつくる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'jinno',k:'kids',text:'子どもの声で学校をつくりつつ先生の負担を減らす。大学・専門学校の学費を支援し、特性や障がいの有無に関わらず学べる教育を実現する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'jinno',k:'life',text:'アフォーダブル住宅と通院・買い物の足で暮らし続けられる地域をつくり、介護・福祉で働く人の負担を減らす。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'jinno',k:'gov',text:'市長の決断と理由をSNSや動画で発信し、各地の対話会で市政の状況を報告する。県・北九州市と協力して副首都の指定も目指す。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neg',who:'yoshitomi',k:'econ',text:'地場企業への発注と事業承継を支援し、外資優遇の金融特区を見直す。飲食店向けに無利子・無担保の「予防融資」を創設する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neg',who:'yoshitomi',k:'intl',text:'外国人住民にルール順守を求め、民泊規制と制度の見直しを進める。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'yoshitomi',k:'life',text:'転倒予防と重複服薬の防止に取り組み、市内の介護人材を育てる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'yoshitomi',k:'safe',text:'内水氾濫対策を急ぎ、真夏や真冬でも過ごせる避難所を整備する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'pos',who:'abe',k:'econ',text:'企業誘致やスタートアップ、地場企業の成長支援を推進し、半導体関連など成長産業の集積で所得向上を目指す。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'abe',k:'life',text:'がん検診・歯科健診・5歳児健診など予防医療と、フレイル予防など介護予防を充実させる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'abe',k:'intl',text:'外国人を受け入れる企業や学校に生活ルール教育を求める市独自の条例を制定し、警察と連携して治安維持を図る。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'abe',k:'kids',text:'市独自の出産祝い金と、返済不要の給付型奨学金を創設する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'abe',k:'tour',text:'祭りや伝統芸能の担い手育成、文化財や伝統工芸の保存・継承を支援する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shirabe',k:'city',text:'インフラ投資と公共交通ネットワークの強化で渋滞を解消する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shirabe',k:'kids',text:'母親への伴走型支援、教育現場への投資、障がいや多様な学びが必要な子どもへの支援を高校年次まで行う。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'pos',who:'shirabe',k:'life',text:'生活コストの安さや免許返納後の移動手段を維持し、ライフステージに応じた住まいがあり物価高騰を抑えた街を目指す。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shirabe',k:'safe',text:'道路や橋梁など生活に必須のインフラを壊れにくいように更新・改修する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'mori',k:'city',text:'七隈線と空港線を環状線化する。アイランドシティに中央公園駅を新設し、自動運転タクシーを早期導入する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'mori',k:'kids',text:'学校給食の中国産食材を完全にゼロにする。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'nishiwaki',k:'tour',text:'アニメ・漫画テーマパークの誘致、ボートレース収益による基金で音楽・演劇・アート・映像を仕事にする取り組み、W杯決勝ができるスタジアム(大型施設は民間投資)を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'nishiwaki',k:'econ',text:'地元の飲食店で使えるプレミアム食事券を発行する。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'nishiwaki',k:'gov',text:'駅立ち・ビラ配り・ポスター・選挙カーを一切やらずに当選することを掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'pos',who:'shimmura',k:'gov',text:'「高島市政の継承と進化」を掲げ、政治の悪しき慣習を断ち切り市民の信頼を取り戻すとする。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shimmura',k:'life',text:'家賃・物価高騰への対策と介護家庭のサポートを掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shimmura',k:'kids',text:'「子育てに優しいまち」を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shimmura',k:'city',text:'ベイエリア構想、FUKUOKA副都心計画、博多駅「筑紫口」エリアのブランド化、地下街を中心とした地下通路構想を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shimmura',k:'safe',text:'「新時代の都市防災」を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shimmura',k:'intl',text:'世界とつながる国際都市、金融都市「FUKUOKA」を掲げる。(選挙公報)',date:'2026-11-02',url:KH},
+ {t:'neu',who:'shimmura',k:'tour',text:'歴史・伝統文化を旅する街、世界一のグルメイベントが開催される都市を掲げる。(選挙公報)',date:'2026-11-02',url:KH}
 ];
 
 var LS='fukuoka-mayor-db-extra';
@@ -535,6 +543,8 @@ function all(){return STM.concat(extra)}
 function cands(){return ORDER.filter(function(id){return byId[id]}).map(function(id){return byId[id]})}
 function color(id){var i=ORDER.indexOf(id);if(i<0)i=0;return 'hsl('+Math.round(i*360/13+8)+',52%,38%)'}
 function nm(c){return c.name.replace(/\s/g,'')}
+var TN={pos:'継続・評価',neg:'見直し・批判',neu:'新規・その他'};
+function tn(p){var t=p.t||'neu';return '<span class="tn '+t+'" title="AIによる判定(参考)">'+TN[t]+'</span>'}
 function pledgesOf(id){return PLEDGES.filter(function(p){return p.who===id})}
 function stmOf(id){return all().filter(function(s){return s.who===id})}
 function mono(c){return '<span class="mono" style="--c:'+color(c.id)+'">'+esc(nm(c).charAt(0))+'</span>'}
@@ -586,7 +596,7 @@ function openDr(id){
   $('pn').style.setProperty('--c',color(id));
   $('pn').innerHTML='<div class="hd">'+mono(c)+'<div><h3>'+esc(nm(c))+'</h3><div style="font-size:12px;color:var(--sub)">'+esc(c.kana||'')+'</div></div><button class="x" id="dx" aria-label="閉じる">×</button></div><div class="bd">'+
    '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>親族の公職歴(報道で確認できたもの)</dt><dd>'+(c.kin?esc(c.kin)+(c.kinUrl?' <a href="'+esc(c.kinUrl)+'" target="_blank" rel="noopener">出典</a>':''):'報道で確認できず')+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
-   '<h4>公約('+ps.length+'件)</h4>'+(ps.length?'<ul>'+ps.map(function(p){var t=THEMES.filter(function(x){return x.k===p.k})[0]||{name:p.k};return '<li><span class="tag">'+esc(t.name)+'</span> '+esc(p.text)+' <a href="'+esc(p.url)+'">出典</a></li>'}).join('')+'</ul>':'<div class="empty">収集済みの公約はまだありません。選挙公報の公開後に更新します。</div>')+
+   '<h4>公約('+ps.length+'件)</h4>'+(ps.length?'<ul>'+ps.map(function(p){var t=THEMES.filter(function(x){return x.k===p.k})[0]||{name:p.k};return '<li><span class="tag">'+esc(t.name)+'</span> '+tn(p)+esc(p.text)+' <a href="'+esc(p.url)+'">出典</a></li>'}).join('')+'</ul>':'<div class="empty">収集済みの公約はまだありません。選挙公報の公開後に更新します。</div>')+
    '<h4>発言('+ss.length+'件)</h4>'+(ss.length?'<ul>'+ss.map(function(s){return '<li><span class="tag">'+esc(s.theme)+'</span> '+esc(s.text)+' <small style="color:var(--sub)">'+esc(s.date)+'</small>'+(s.url?' <a href="'+esc(s.url)+'">出典</a>':'')+'</li>'}).join('')+'</ul>':'<div class="empty">未収集です。</div>')+'</div>';
   $('dr').classList.add('open');$('dr').setAttribute('aria-hidden','false');
   $('dx').onclick=closeDr;$('dx').focus();
@@ -615,9 +625,11 @@ function renderTc(){
   $('tcs').innerHTML=THEMES.map(function(t){
     var ps=PLEDGES.filter(function(p){return p.k===t.k}).sort(function(a,b){return ORDER.indexOf(a.who)-ORDER.indexOf(b.who)});
     var who={};ps.forEach(function(p){who[p.who]=1});
-    return '<div class="tc"><h3>'+esc(t.name)+'</h3><div class="plan"><b>市の計画</b>　'+esc(t.plan)+'</div>'+
+    var cnt={pos:0,neg:0,neu:0};ps.forEach(function(p){cnt[p.t||'neu']++});var tot=ps.length||1;
+    var bar=ps.length?'<div class="tbar" role="img" aria-label="継続・評価'+cnt.pos+'件、見直し・批判'+cnt.neg+'件、新規・その他'+cnt.neu+'件"><i class="pos" style="width:'+(cnt.pos/tot*100)+'%"></i><i class="neg" style="width:'+(cnt.neg/tot*100)+'%"></i></div><div class="none" style="margin:0 0 8px">AI判定(参考): <span class="tn pos">継続・評価 '+cnt.pos+'</span><span class="tn neg">見直し・批判 '+cnt.neg+'</span><span class="tn neu">新規・その他 '+cnt.neu+'</span></div>':'';
+    return '<div class="tc"><h3>'+esc(t.name)+'</h3><div class="plan"><b>市の計画</b>　'+esc(t.plan)+'</div>'+bar+
       (ps.length?'<ul>'+ps.map(function(p){var c=byId[p.who]||{id:p.who,name:p.who};
-        return '<li>'+mono(c)+'<div><span class="who">'+esc(nm(c))+'</span>'+esc(p.text)+' <small>'+esc(p.date)+'</small> <a href="'+esc(p.url)+'">出典</a></div></li>'}).join('')+'</ul>':'<div class="empty">この分野で収集済みの公約はまだありません。</div>')+
+        return '<li>'+mono(c)+'<div><span class="who">'+esc(nm(c))+'</span>'+tn(p)+esc(p.text)+' <small>'+esc(p.date)+'</small> <a href="'+esc(p.url)+'">出典</a></div></li>'}).join('')+'</ul>':'<div class="empty">この分野で収集済みの公約はまだありません。</div>')+
       '<div class="none">この分野で公約を収集済み: '+Object.keys(who).length+'名 / '+named.length+'名</div></div>';
   }).join('');
 }
