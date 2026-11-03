@@ -337,7 +337,7 @@ var CANDS=[
  {x:'https://x.com/moriken0119',site:'https://moriken3.com/',id:'mori',name:'森 健太郎',kana:'もり けんたろう',party:'日本保守党擁立',tags:['新人','AIエンジニア'],age:'48',
   job:'AIエンジニア(タクシー配車アプリ「GO」関連)',bio:'9/18に市役所で会見し、日本保守党の公認候補として立候補を表明。',support:'日本保守党(公認)',url:DM},
  {site:'https://niimuramasaru.com/',id:'shimmura',name:'新村 優',kana:'しんむら まさる',party:'無所属',tags:['元市議'],age:'46',
-  job:'元福岡市議',bio:'市議として立候補を表明。「市民の声を集める市長」を掲げる。',support:'',x:'https://x.com/masaru_niimura',url:DM+'1'},
+  job:'元福岡市議',bio:'市議として立候補を表明。「市民の声を集める市長」を掲げる。',support:'',kin:'父は元福岡県議(副議長を経験)。',kinUrl:'https://www.data-max.co.jp/2014/06/20/post_16457_ymh_2.html',x:'https://x.com/masaru_niimura',url:DM+'1'},
  {site:'https://www.t-shirabe.net/',id:'shirabe',name:'調 崇史',kana:'しらべ たかし',party:'無所属(自民市議団が擁立)',tags:['元市議','自民市議団が擁立'],age:'48',
   job:'元福岡市議(4期)',
   bio:'福岡市城南区出身。修猷館高校、九州大学法学部卒。2002年テレビ西日本入社、報道記者を経て退社し、元市長の秘書。2011年から福岡市議。2015年に民主党から自民党入り。',
@@ -489,7 +489,7 @@ function openDr(id){
   links.push('<a href="'+esc(c.url)+'">主な出典</a>');
   $('pn').style.setProperty('--c',color(id));
   $('pn').innerHTML='<div class="hd">'+mono(c)+'<div><h3>'+esc(nm(c))+'</h3><div style="font-size:12px;color:var(--sub)">'+esc(c.kana||'')+'</div></div><button class="x" id="dx" aria-label="閉じる">×</button></div><div class="bd">'+
-   '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
+   '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>親族の公職歴(報道で確認できたもの)</dt><dd>'+(c.kin?esc(c.kin)+(c.kinUrl?' <a href="'+esc(c.kinUrl)+'" target="_blank" rel="noopener">出典</a>':''):'報道で確認できず')+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
    '<h4>公約('+ps.length+'件)</h4>'+(ps.length?'<ul>'+ps.map(function(p){var t=THEMES.filter(function(x){return x.k===p.k})[0]||{name:p.k};return '<li><span class="tag">'+esc(t.name)+'</span> '+esc(p.text)+' <a href="'+esc(p.url)+'">出典</a></li>'}).join('')+'</ul>':'<div class="empty">収集済みの公約はまだありません。選挙公報の公開後に更新します。</div>')+
    '<h4>発言('+ss.length+'件)</h4>'+(ss.length?'<ul>'+ss.map(function(s){return '<li><span class="tag">'+esc(s.theme)+'</span> '+esc(s.text)+' <small style="color:var(--sub)">'+esc(s.date)+'</small>'+(s.url?' <a href="'+esc(s.url)+'">出典</a>':'')+'</li>'}).join('')+'</ul>':'<div class="empty">未収集です。</div>')+'</div>';
   $('dr').classList.add('open');$('dr').setAttribute('aria-hidden','false');
