@@ -134,6 +134,7 @@ h2 small{font-family:var(--font-body);font-size:12px;letter-spacing:.14em;color:
 .tn{display:inline-block;font-size:11.5px;font-weight:700;padding:0 7px;border-radius:3px;margin-right:6px;white-space:nowrap;vertical-align:1px}
 .tn.pos{color:var(--pos);background:var(--pos-bg)}.tn.neg{color:var(--neg);background:var(--neg-bg)}.tn.neu{color:var(--neu);background:var(--neu-bg)}
 .tbar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--neu-bg);margin:4px 0 2px}.tbar i{display:block}.tbar .pos{background:var(--pos)}.tbar .neg{background:var(--neg)}
+.tcnt{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.tcnt .tn{margin:0;font-size:11px}
 .tlg{font-size:12.5px;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin:0 0 14px}.tlg .tn{margin-left:2px}
 
 /* plan stats */
@@ -574,10 +575,12 @@ function renderGrid(){
   $('cn').textContent=cs.length+'/'+cands().length;
   $('grid').innerHTML=cs.length?cs.map(function(c){
     var np=pledgesOf(c.id).length,ns=stmOf(c.id).length;
+    var tc={pos:0,neg:0,neu:0};pledgesOf(c.id).forEach(function(p){tc[p.t||'neu']++});
     return '<button class="cc" style="--c:'+color(c.id)+'" data-id="'+c.id+'"><span class="sq">'+esc(nm(c).charAt(0))+'</span><div class="tx"><h3>'+esc(nm(c))+'</h3><div class="kana">'+esc(c.kana||'')+'</div>'+
       '<div class="role">'+esc(c.job||'経歴は確認中')+'</div>'+
       '<div class="meta">'+(c.party?'<span class="tag party">'+esc(c.party)+'</span>':'')+(c.age?'<span class="tag">'+esc(c.age)+'歳</span>':'')+'</div>'+
-      '<div class="nums"><span><b>'+np+'</b>公約</span><span><b>'+ns+'</b>発言</span><span><b>'+((c.site?1:0)+(c.x?1:0))+'</b>リンク</span></div></div></button>';
+      '<div class="nums"><span><b>'+np+'</b>公約</span><span><b>'+ns+'</b>発言</span><span><b>'+((c.site?1:0)+(c.x?1:0))+'</b>リンク</span></div>'+
+      (np?'<div class="tcnt" title="公約のAI判定(参考)の内訳">'+['pos','neg','neu'].map(function(k){return '<span class="tn '+k+'">'+TN[k]+' '+tc[k]+'</span>'}).join('')+'</div>':'')+'</div></button>';
   }).join(''):'<div class="empty">該当する候補者がいません。</div>';
   document.querySelectorAll('.cc').forEach(function(b){b.onclick=function(){openDr(b.dataset.id)}});
 }
