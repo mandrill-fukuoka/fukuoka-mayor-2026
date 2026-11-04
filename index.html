@@ -135,6 +135,19 @@ h2 small{font-family:var(--font-body);font-size:12px;letter-spacing:.14em;color:
 .tn.pos{color:var(--pos);background:var(--pos-bg)}.tn.neg{color:var(--neg);background:var(--neg-bg)}.tn.neu{color:var(--neu);background:var(--neu-bg)}
 .tbar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--neu-bg);margin:4px 0 2px}.tbar i{display:block}.tbar .pos{background:var(--pos)}.tbar .neg{background:var(--neg)}
 .tcnt{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.tcnt .tn{margin:0;font-size:11px}
+.sp{display:grid;gap:8px}
+.sp .row{display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:10px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.sp .hd{background:transparent;border:0;padding:0 12px;font-size:12px;color:var(--sub);font-weight:700}
+.sp .nm{display:flex;gap:8px;align-items:center;font-weight:700;font-size:14px;cursor:pointer;background:none;border:0;padding:0;color:var(--ink);text-align:left;font-family:inherit}
+.sp .nm .mono{width:28px;height:28px;font-size:14px}
+.sc{display:inline-block;font-size:12px;line-height:1.5;padding:2px 8px;border-radius:4px;margin:0 4px 4px 0;color:var(--ink);text-decoration:none}
+.sc b{font-size:11px;margin-right:4px;color:var(--sub)}
+.sc.f1{border:1.5px solid var(--ink);background:var(--card)}
+.sc.f0{border:1.5px dashed var(--sub);background:var(--soft)}
+.sc.f2{border:1px solid var(--line);background:transparent;color:var(--sub)}
+.sc small{display:block;font-size:11px;color:var(--sub)}
+.sp .none{font-size:12px;color:var(--sub)}
+@media (max-width:760px){.sp .row{grid-template-columns:1fr}.sp .hd{display:none}.sp .cell:before{content:attr(data-l);display:block;font-size:11px;color:var(--sub);font-weight:700;margin-bottom:2px}}
 .tlg{font-size:12.5px;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin:0 0 14px}.tlg .tn{margin-left:2px}
 
 /* plan stats */
@@ -225,7 +238,7 @@ footer ul{padding-left:1.2em}
 </header>
 
 <nav class="nav" aria-label="ページ内移動"><div class="wrap">
-  <a href="#cands">候補者</a><a href="#issues">争点</a><a href="#plans">市の計画</a><a href="#history">過去の選挙</a><a href="#line">当選ライン</a><a href="#log">発言ログ</a><a href="#src">出典</a>
+  <a href="#cands">候補者</a><a href="#support">支援</a><a href="#issues">争点</a><a href="#plans">市の計画</a><a href="#history">過去の選挙</a><a href="#line">当選ライン</a><a href="#log">発言ログ</a><a href="#src">出典</a>
 </div></nav>
 
 <main class="wrap">
@@ -250,6 +263,13 @@ footer ul{padding-left:1.2em}
     <button class="chip" data-f="no" aria-pressed="false">公約が未収集</button>
   </div>
   <div class="grid" id="grid"></div>
+</section>
+
+<section id="support">
+  <h2><small>Support</small>支援・推薦の関係</h2>
+  <p class="lead">政党・団体の正式な決定(公認・推薦・支持など)を<span class="sc f1" style="margin:0 2px">実線</span>、報道や選挙公報で確認できた応援・選対などを<span class="sc f0" style="margin:0 2px">点線</span>、本人の表明を<span class="sc f2" style="margin:0 2px">枠のみ</span>で示します。チップを押すと出典が開きます。報道・公的資料・本人の公開媒体で確認できたものだけを載せ、空欄は「確認できていない」という意味です。</p>
+  <div class="sp" id="sp"></div>
+  <p class="none" id="spn" style="font-size:12.5px;color:var(--sub);margin-top:10px"></p>
 </section>
 
 <section id="issues">
@@ -338,6 +358,8 @@ footer ul{padding-left:1.2em}
     <li><a href="https://kokkai.ndl.go.jp/">国会会議録検索システム(稲富氏の委員会発言)</a></li>
     <li><a href="https://www.city.fukuoka.lg.jp/hofuku/hokensho/shokuhinanzen/documents/02iinmeibo.pdf">福岡市 食の安全・安心推進協議会 委員名簿</a></li>
     <li><a href="https://www.fk-shinbun.co.jp/?p=32277">福岡県民新聞 維新の福岡市選挙区一次公認候補(2022/10)</a></li>
+    <li><a href="https://sanseito.jp/news/n10819/">参政党 福岡市長選挙における政策協定締結及び推薦決定</a></li>
+    <li><a href="https://data-max.co.jp/article/87773">DATA MAX 参政党推薦・吉富氏の演説会(11/3)</a></li>
     <li><a href="https://resemom.jp/article/2018/08/06/46079.html">リセマム 神野元基氏インタビュー(2018)</a></li>
     <li><a href="https://www.nishinippon.co.jp/item/1555665/">西日本新聞 福岡市長選が告示 立候補者名鑑(11/1)</a></li>
     <li><a href="https://news.tnc.co.jp/news/articles/NID2026110232671">TNCテレビ西日本 13人の第一声(11/2)</a></li>
@@ -452,7 +474,8 @@ var STM=[
  {who:'sasaki',date:'2026-11-03',theme:'成長と市民生活',media:'FBSアンケート',text:'「ある程度還元されている」と回答。子育て世代への住居費支援、高齢者の医療・介護や移動支援、公共サービスの減免を挙げた。',url:'https://news.yahoo.co.jp/articles/2a0a132ebc9395c39dd3b324c2fea515c2f0fd3b'},
  {who:'shirabe',date:'2026-11-03',theme:'成長と市民生活',media:'FBSアンケート',text:'「ある程度還元されている」と回答。所得向上、住宅、交通、子育て、福祉への投資を強め、都心以外の地域でも成長を実感できるようにするとした。',url:'https://news.yahoo.co.jp/articles/2a0a132ebc9395c39dd3b324c2fea515c2f0fd3b'},
  {who:'jinno',date:'2026-11-03',theme:'成長と市民生活',media:'FBSアンケート',text:'「ある程度還元されている」と回答。中小企業のDX・AI活用や価格転嫁の相談、アフォーダブル住宅、通院・買い物の足の確保を挙げた。',url:'https://news.yahoo.co.jp/articles/2a0a132ebc9395c39dd3b324c2fea515c2f0fd3b'},
- {who:'inoue',date:'2026-11-03',theme:'成長と市民生活',media:'FBSアンケート',text:'「ある程度還元されている」と回答。市民税5%減税で1世帯あたり年約1万円を還元し、税収増で福祉や子育て予算を充実させるとした。',url:'https://news.yahoo.co.jp/articles/2a0a132ebc9395c39dd3b324c2fea515c2f0fd3b'}
+ {who:'inoue',date:'2026-11-03',theme:'成長と市民生活',media:'FBSアンケート',text:'「ある程度還元されている」と回答。市民税5%減税で1世帯あたり年約1万円を還元し、税収増で福祉や子育て予算を充実させるとした。',url:'https://news.yahoo.co.jp/articles/2a0a132ebc9395c39dd3b324c2fea515c2f0fd3b'},
+ {who:'yoshitomi',date:'2026-11-03',theme:'経済・所得',media:'演説会(DATA MAX)',text:'天神の警固公園での演説会で、市は外からお金を集めることには成功したが、そのお金が東京や海外へ流れて市内で循環していないと述べ、地元の店・企業と市民の所得向上につなげるべきだと訴えた。',url:'https://data-max.co.jp/article/87773'}
 ];
 var SK='https://www.city.fukuoka.lg.jp/soki/kikaku/shisei/fukuokashikihonkosokihonkeikaku/';
 var PLANS=[
@@ -593,6 +616,34 @@ var PLEDGES=[
  {t:'neu',who:'inoue',k:'gov',text:'政治資金を徹底公開し、市長・市幹部と業者との関係を透明化する。(FBSアンケート)',date:'2026-11-02',url:'https://news.yahoo.co.jp/articles/db79fb6dc4605c68b8d086eb024a6fea61844a4d'}
 ];
 
+var SUP=[
+ {who:'mori',f:1,k:'公認',n:'日本保守党',note:'',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/sityoukouhosyatodokedesokuhouyousi.pdf'},
+ {who:'mori',f:0,k:'応援',n:'百田尚樹(日本保守党代表)',note:'告示日の第一声で応援',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {who:'mori',f:0,k:'応援',n:'有本香(日本保守党代表代行)',note:'告示日の第一声で応援',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {who:'mori',f:0,k:'応援',n:'北村晴男(参院議員・弁護士)',note:'選挙公報に推薦の言葉',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'yoshitomi',f:1,k:'推薦',n:'参政党',note:'政策協定を締結',url:'https://sanseito.jp/news/n10819/'},
+ {who:'yoshitomi',f:0,k:'応援',n:'神谷宗幣(参政党代表・参院議員)',note:'11/3の演説会で応援',url:'https://data-max.co.jp/article/87773'},
+ {who:'yoshitomi',f:0,k:'応援',n:'中田優子(参院議員)',note:'11/3の演説会で応援',url:'https://data-max.co.jp/article/87773'},
+ {who:'inoue',f:1,k:'公認',n:'減税日本',note:'',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/sityoukouhosyatodokedesokuhouyousi.pdf'},
+ {who:'inoue',f:0,k:'応援',n:'河村たかし(減税日本代表・衆院議員)',note:'告示日の第一声で応援',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {who:'inoue',f:0,k:'応援',n:'広沢一郎(名古屋市長)',note:'告示日の第一声で応援',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {who:'aramaki',f:1,k:'公認',n:'こころ党',note:'届出の党派',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/sityoukouhosyatodokedesokuhouyousi.pdf'},
+ {who:'katayama',f:1,k:'支持',n:'日本共産党',note:'',url:'https://www.nikkei.com/article/DGXZQOCC010M20R01C26A1000000/'},
+ {who:'katayama',f:0,k:'応援',n:'田村智子(日本共産党委員長)',note:'選挙公報の応援者欄',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'katayama',f:0,k:'応援',n:'荒木龍昇(ふくおか緑の党代表)',note:'選挙公報の応援者欄',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'katayama',f:0,k:'応援',n:'菱山南帆子(市民連合共同代表)',note:'選挙公報の応援者欄',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'katayama',f:0,k:'応援',n:'井下顕(弁護士)・酒井嘉子(九州大学名誉教授)',note:'選挙公報の応援者欄',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'katayama',f:0,k:'推薦・支援',n:'87団体・個人351人',note:'選挙公報に記載(10/27現在)',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'inatomi',f:1,k:'支援',n:'連合福岡',note:'自主的支援',url:'https://www.nikkei.com/article/DGXZQOCC010M20R01C26A1000000/'},
+ {who:'inatomi',f:2,k:'表明',n:'政党・団体に推薦依頼をしない',note:'告示日も応援演説なし',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {who:'shirabe',f:1,k:'推薦',n:'自民党福岡市議団',note:'選挙公報の表記',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'shirabe',f:1,k:'見送り',n:'自民党(党としての推薦)',note:'',url:'https://www.nikkei.com/article/DGXZQOCC010M20R01C26A1000000/'},
+ {who:'shirabe',f:0,k:'選対',n:'鬼木誠(自民党衆院議員)',note:'選対本部長',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {who:'shimmura',f:0,k:'応援',n:'市議や地元企業の経営者ら',note:'出陣式に参加(氏名の報道なし)',url:'https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897'},
+ {who:'sasaki',f:2,k:'表明',n:'しがらみのない「完全無所属」',note:'選挙公報',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/R8kouhou.pdf'},
+ {who:'nishiwaki',f:2,k:'表明',n:'大きな組織や後ろ盾なし',note:'告示日の第一声',url:'https://news.tnc.co.jp/news/articles/NID2026110232671'}
+];
+var SUPNOTE={txt:'日本維新の会、国民民主党、公明党、立憲民主党、社民党は自主投票(日本経済新聞 11/1)。',url:'https://www.nikkei.com/article/DGXZQOCC010M20R01C26A1000000/'};
 var LS='fukuoka-mayor-db-extra';
 var extra=[];
 try{extra=JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){extra=[]}
@@ -657,7 +708,7 @@ function openDr(id){
   links.push('<a href="'+esc(c.url)+'">主な出典</a>');
   $('pn').style.setProperty('--c',color(id));
   $('pn').innerHTML='<div class="hd">'+mono(c)+'<div><h3>'+esc(nm(c))+'</h3><div style="font-size:12px;color:var(--sub)">'+esc(c.kana||'')+'</div></div><button class="x" id="dx" aria-label="閉じる">×</button></div><div class="bd">'+
-   '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>親族の公職歴(報道で確認できたもの)</dt><dd>'+(c.kin?esc(c.kin)+(c.kinUrl?' <a href="'+esc(c.kinUrl)+'" target="_blank" rel="noopener">出典</a>':''):'報道で確認できず')+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
+   '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>支援・応援(報道・公報で確認)</dt><dd>'+(SUP.filter(function(x){return x.who===c.id}).map(supChip).join('')||'確認できず')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>親族の公職歴(報道で確認できたもの)</dt><dd>'+(c.kin?esc(c.kin)+(c.kinUrl?' <a href="'+esc(c.kinUrl)+'" target="_blank" rel="noopener">出典</a>':''):'報道で確認できず')+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
    '<h4>公約('+ps.length+'件)</h4>'+(ps.length?'<ul>'+ps.map(function(p){var t=THEMES.filter(function(x){return x.k===p.k})[0]||{name:p.k};return '<li><span class="tag">'+esc(t.name)+'</span> '+tn(p)+esc(p.text)+' <a href="'+esc(p.url)+'">出典</a></li>'}).join('')+'</ul>':'<div class="empty">収集済みの公約はまだありません。選挙公報の公開後に更新します。</div>')+
    '<h4>発言('+ss.length+'件)</h4>'+(ss.length?'<ul>'+ss.map(function(s){return '<li><span class="tag">'+esc(s.theme)+'</span> '+esc(s.text)+' <small style="color:var(--sub)">'+esc(s.date)+'</small>'+(s.url?' <a href="'+esc(s.url)+'">出典</a>':'')+'</li>'}).join('')+'</ul>':'<div class="empty">未収集です。</div>')+'</div>';
   $('dr').classList.add('open');$('dr').setAttribute('aria-hidden','false');
@@ -679,6 +730,19 @@ function renderHm(){
   }).join('');
   $('hm').innerHTML=head+'<tbody>'+rows+'</tbody>';
   document.querySelectorAll('#hm td button').forEach(function(b){b.onclick=function(){openDr(b.dataset.id)}});
+}
+
+/* support */
+function supChip(x){return '<a class="sc f'+x.f+'" href="'+esc(x.url)+'" target="_blank" rel="noopener"><b>'+esc(x.k)+'</b>'+esc(x.n)+(x.note?'<small>'+esc(x.note)+'</small>':'')+'</a>'}
+function renderSup(){
+  var L=['公式(政党・団体の決定)','非公式(報道・公報で確認)','本人の表明'];
+  $('sp').innerHTML='<div class="row hd"><div>候補者</div><div>'+L[0]+'</div><div>'+L[1]+'</div><div>'+L[2]+'</div></div>'+cands().map(function(c){
+    var xs=SUP.filter(function(x){return x.who===c.id});
+    function cell(f,i){var a=xs.filter(function(x){return x.f===f});return '<div class="cell" data-l="'+L[i]+'">'+(a.length?a.map(supChip).join(''):'<span class="none">—</span>')+'</div>'}
+    return '<div class="row"><button class="nm" data-id="'+c.id+'">'+mono(c)+esc(nm(c))+'</button>'+cell(1,0)+cell(0,1)+cell(2,2)+'</div>';
+  }).join('');
+  $('spn').innerHTML=esc(SUPNOTE.txt)+' <a href="'+esc(SUPNOTE.url)+'" target="_blank" rel="noopener">出典</a>';
+  document.querySelectorAll('#sp .nm').forEach(function(b){b.onclick=function(){openDr(b.dataset.id)}});
 }
 
 /* theme cards */
@@ -756,7 +820,7 @@ $('copy').onclick=function(){
   try{navigator.clipboard.writeText(t).then(function(){$('msg').textContent='コピーしました'},function(){$('msg').textContent='コピーできませんでした'})}catch(err){$('msg').textContent='コピーできませんでした'}
 };
 
-fillSelects();renderGrid();renderHm();renderTc();renderBars();renderPlans();renderHist();renderStm();
+fillSelects();renderGrid();renderSup();renderHm();renderTc();renderBars();renderPlans();renderHist();renderStm();
 </script>
 </body>
 </html>
