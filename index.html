@@ -240,7 +240,7 @@ footer ul{padding-left:1.2em}
 </header>
 
 <nav class="nav" aria-label="ページ内移動"><div class="wrap">
-  <a href="#cands">候補者</a><a href="#support">支援</a><a href="#issues">争点</a><a href="#plans">市の計画</a><a href="#history">過去の選挙</a><a href="#line">当選ライン</a><a href="#log">発言ログ</a><a href="#src">出典</a>
+  <a href="#cands">候補者</a><a href="#support">支援</a><a href="#issues">争点</a><a href="#plans">市の計画</a><a href="#history">過去の選挙</a><a href="#trend">情勢報道</a><a href="#line">当選ライン</a><a href="#log">発言ログ</a><a href="#src">出典</a>
 </div></nav>
 
 <main class="wrap">
@@ -300,6 +300,16 @@ footer ul{padding-left:1.2em}
     <div class="bx"><h3>投票率(%)</h3><div class="cols" id="h-turn"></div></div>
   </div>
   <p class="lead" style="margin-top:8px">投票率は、2010年の数字を確認できていないため、2014年以降を載せています。</p>
+</section>
+
+<section id="trend">
+  <h2><small>Poll reports</small>報道機関の情勢調査</h2>
+  <p class="lead">報道機関が自社で実施・公表した情勢調査の内容を、報道の表現のまま要約して載せます。電話調査に取材を加味した「情勢」で、得票の予測ではありません。<b>回答者の3割超が投票先を決めていない</b>(共同通信)ため、情勢は変わる可能性があります。出どころの不明な数字、個人の予測、関係者間で流れている情報は載せません。</p>
+  <div class="tbl"><table class="t">
+    <thead><tr><th>報道機関</th><th>調査日・方法</th><th>報じられた内容(要約)</th><th>出典</th></tr></thead>
+    <tbody id="trend-body"></tbody>
+  </table></div>
+  <p class="lead" style="margin-top:8px">各候補の欄の「情勢報道での言及」には、各社の記事が候補者に使った表現をそのまま載せています。言及のない候補者は「個別の言及なし」と表示します。</p>
 </section>
 
 <section id="line">
@@ -368,8 +378,11 @@ footer ul{padding-left:1.2em}
     <li><a href="https://www.nishinippon.co.jp/item/1555665/">西日本新聞 福岡市長選が告示 立候補者名鑑(11/1)</a></li>
     <li><a href="https://news.tnc.co.jp/news/articles/NID2026110232671">TNCテレビ西日本 13人の第一声(11/2)</a></li>
     <li><a href="https://news.yahoo.co.jp/articles/6812d2ed492f9a76ea232c24385b6c4e7141a897">朝日新聞 告示日の訴え(Yahoo!ニュース)</a></li>
+    <li><a href="https://www.nikkei.com/article/DGXZQOJC0805L0Y6A101C2000000/">日本経済新聞(共同) 福岡市長選挙、稲富修二氏やや先行(11/8)</a></li>
+    <li><a href="https://news.tnc.co.jp/news/articles/NID2026110832755">TNC 福岡市長選は稲富氏がややリード 電話による情勢調査(11/8)</a></li>
+    <li><a href="https://www.nishinippon.co.jp/item/1558052/">西日本新聞 福岡市長選情勢調査(11/7)</a></li>
   </ul>
-  <p>事実と発言の要約のみを記録し、思想ラベルや評価は載せません(例外として、公約欄の「継続・評価/見直し・批判/新規・その他」は、文面にもとづくAIの参考判定で、基準を公約欄に明記しています)。出典のない情報は載せません。公式サイトのURLは第三者の一覧にもとづき、個別の確認は済んでいません。</p>
+  <p>報道機関が自社で公表した情勢調査は、報道の表現のまま要約して載せます(出どころ不明の数字や個人の予測は載せません)。事実と発言の要約のみを記録し、思想ラベルや評価は載せません(例外として、公約欄の「継続・評価/見直し・批判/新規・その他」は、文面にもとづくAIの参考判定で、基準を公約欄に明記しています)。出典のない情報は載せません。公式サイトのURLは第三者の一覧にもとづき、個別の確認は済んでいません。</p>
   <p>このページは、特定の候補者の当選・落選を目的とせず、公開情報を整理して市民の判断材料にするための、個人運営の非営利ページです。誤りや修正のご指摘は <a href="https://github.com/mandrill-fukuoka/fukuoka-mayor-2026/issues">GitHubのIssues</a> へお願いします。</p>
 </div></footer>
 
@@ -931,7 +944,7 @@ function openDr(id){
   links.push('<a href="'+esc(c.url)+'">主な出典</a>');
   $('pn').style.setProperty('--c',color(id));
   $('pn').innerHTML='<div class="hd">'+mono(c)+'<div><h3>'+esc(nm(c))+'</h3><div style="font-size:12px;color:var(--sub)">'+esc(c.kana||'')+'</div></div><button class="x" id="dx" aria-label="閉じる">×</button></div><div class="bd">'+
-   '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>支援・応援(報道・公報で確認)</dt><dd>'+(SUP.filter(function(x){return x.who===c.id}).map(supChip).join('')||'確認できず')+'</dd><dt>職歴</dt><dd>'+(c.car&&c.car.length?'<ol class="car">'+c.car.map(function(x){return '<li>'+esc(x[0])+(x[1]?' <a href="'+esc(x[1])+'" target="_blank" rel="noopener">出典</a>':'')+'</li>'}).join('')+'</ol>':'確認中')+'</dd><dt>学歴</dt><dd>'+(c.edu?esc(c.edu)+(c.eduUrl?' <a href="'+esc(c.eduUrl)+'" target="_blank" rel="noopener">出典</a>':''):'確認中')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>親族の公職歴(報道で確認できたもの)</dt><dd>'+(c.kin?esc(c.kin)+(c.kinUrl?' <a href="'+esc(c.kinUrl)+'" target="_blank" rel="noopener">出典</a>':''):'報道で確認できず')+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
+   '<dl><dt>年齢</dt><dd>'+esc(c.age?c.age+'歳':'確認中')+'</dd><dt>党派・推薦</dt><dd>'+esc([c.party,c.support].filter(Boolean).join(' / ')||'確認中')+'</dd><dt>支援・応援(報道・公報で確認)</dt><dd>'+(SUP.filter(function(x){return x.who===c.id}).map(supChip).join('')||'確認できず')+'</dd><dt>職歴</dt><dd>'+(c.car&&c.car.length?'<ol class="car">'+c.car.map(function(x){return '<li>'+esc(x[0])+(x[1]?' <a href="'+esc(x[1])+'" target="_blank" rel="noopener">出典</a>':'')+'</li>'}).join('')+'</ol>':'確認中')+'</dd><dt>学歴</dt><dd>'+(c.edu?esc(c.edu)+(c.eduUrl?' <a href="'+esc(c.eduUrl)+'" target="_blank" rel="noopener">出典</a>':''):'確認中')+'</dd><dt>肩書・職業</dt><dd>'+esc(c.job||'確認中')+'</dd><dt>経歴</dt><dd>'+esc(c.bio)+'</dd><dt>情勢報道での言及(報道の表現)</dt><dd>'+trendOf(c.id)+'</dd><dt>親族の公職歴(報道で確認できたもの)</dt><dd>'+(c.kin?esc(c.kin)+(c.kinUrl?' <a href="'+esc(c.kinUrl)+'" target="_blank" rel="noopener">出典</a>':''):'報道で確認できず')+'</dd><dt>リンク</dt><dd>'+links.join(' / ')+'</dd></dl>'+
    '<h4>公約('+ps.length+'件)</h4>'+(ps.length?'<ul>'+ps.map(function(p){var t=THEMES.filter(function(x){return x.k===p.k})[0]||{name:p.k};return '<li><span class="tag">'+esc(t.name)+'</span> '+tn(p)+esc(p.text)+' <a href="'+esc(p.url)+'">出典</a></li>'}).join('')+'</ul>':'<div class="empty">収集済みの公約はまだありません。選挙公報の公開後に更新します。</div>')+
    '<h4>発言('+ss.length+'件)</h4>'+(ss.length?'<ul>'+ss.map(function(s){return '<li><span class="tag">'+esc(s.theme)+'</span> '+esc(s.text)+' <small style="color:var(--sub)">'+esc(s.date)+'</small>'+(s.url?' <a href="'+esc(s.url)+'">出典</a>':'')+'</li>'}).join('')+'</ul>':'<div class="empty">未収集です。</div>')+'</div>';
   $('dr').classList.add('open');$('dr').setAttribute('aria-hidden','false');
@@ -1011,6 +1024,18 @@ function cols(el,data,max,cur,unit){
     return '<div class="'+(d[0]===cur?'cur':'')+'"><b>'+d[1]+(unit||'')+'</b><span style="height:'+(d[1]/max*100).toFixed(1)+'%"></span><small>'+d[0]+'</small></div>';
   }).join('');
 }
+var POLLS=[
+ {outlet:'共同通信',date:'2026-11-08',method:'11/6〜7に電話調査(固定516人・携帯512人の有効回答)に取材を加味',text:'稲富氏がやや先行し、調氏、森氏、新村氏、吉富氏、佐々木氏が猛追と報道。回答者の3割超が投票先を決めておらず、支持が分散して再選挙になる可能性にも触れている。',url:'https://www.nikkei.com/article/DGXZQOJC0805L0Y6A101C2000000/',by:{inatomi:'やや先行',shirabe:'猛追',mori:'猛追',shimmura:'猛追',yoshitomi:'猛追',sasaki:'猛追'}},
+ {outlet:'TNC(テレビ西日本)',date:'2026-11-08',method:'11/6〜7に電話調査(固定516人・携帯512人の有効回答)に取材を加味',text:'稲富氏がややリードし、調氏、森氏、新村氏が横一線で追い上げと報道。市長選への関心は94.0%、投票に「行く」(必ず・たぶん)は87.1%、期日前投票を済ませた人は10.0%。',url:'https://news.tnc.co.jp/news/articles/NID2026110832755',by:{inatomi:'ややリード',shirabe:'横一線で追い上げ',mori:'横一線で追い上げ',shimmura:'横一線で追い上げ'}},
+ {outlet:'西日本新聞',date:'2026-11-07',method:'11/6〜7に電話調査に取材を加味',text:'稲富氏がリードし、調氏、森氏、新村氏が追う展開と報道。再選挙の可能性にも触れている。関連記事で、年代別の支持層や有権者の関心、重視する政策も報じている。',url:'https://www.nishinippon.co.jp/item/1558052/',by:{inatomi:'リード',shirabe:'追う展開',mori:'追う展開',shimmura:'追う展開'}}
+];
+function renderTrend(){
+  var b=document.getElementById('trend-body');if(!b)return;
+  b.innerHTML=POLLS.map(function(p){return '<tr><td>'+esc(p.outlet)+'<br><span style="color:var(--sub);font-size:12px">'+esc(p.date)+'</span></td><td>'+esc(p.method)+'</td><td>'+esc(p.text)+'</td><td><a href="'+esc(p.url)+'" target="_blank" rel="noopener">記事</a></td></tr>'}).join('');
+}
+function trendOf(id){
+  return POLLS.map(function(p){return p.by&&p.by[id]?esc(p.outlet)+': '+esc(p.by[id]):''}).filter(Boolean).join(' / ')||'個別の言及なし';
+}
 function renderHist(){
   cols('h-cand',[['2010',8],['2014',6],['2018',2],['2022',3],['2026',13]],13,'2026');
   cols('h-turn',[['2014',38.79],['2018',31.42],['2022',34.31]],50,'',' ');
@@ -1043,7 +1068,7 @@ $('copy').onclick=function(){
   try{navigator.clipboard.writeText(t).then(function(){$('msg').textContent='コピーしました'},function(){$('msg').textContent='コピーできませんでした'})}catch(err){$('msg').textContent='コピーできませんでした'}
 };
 
-fillSelects();renderGrid();renderSup();renderHm();renderTc();renderBars();renderPlans();renderHist();renderStm();
+fillSelects();renderGrid();renderSup();renderHm();renderTc();renderBars();renderPlans();renderHist();renderTrend();renderStm();
 </script>
 </body>
 </html>
