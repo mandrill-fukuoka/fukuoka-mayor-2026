@@ -240,7 +240,7 @@ footer ul{padding-left:1.2em}
 </header>
 
 <nav class="nav" aria-label="ページ内移動"><div class="wrap">
-  <a href="#cands">候補者</a><a href="#support">支援</a><a href="#issues">争点</a><a href="#plans">市の計画</a><a href="#history">過去の選挙</a><a href="#trend">情勢報道</a><a href="#early">期日前投票</a><a href="#line">当選ライン</a><a href="#log">発言ログ</a><a href="#src">出典</a>
+  <a href="#cands">候補者</a><a href="#support">支援</a><a href="#issues">争点</a><a href="#plans">市の計画</a><a href="#history">過去の選挙</a><a href="#trend">情勢報道</a><a href="#early">期日前投票</a><a href="#mood">有権者の意識</a><a href="#line">当選ライン</a><a href="#log">発言ログ</a><a href="#src">出典</a>
 </div></nav>
 
 <main class="wrap">
@@ -322,6 +322,15 @@ footer ul{padding-left:1.2em}
   <p class="lead" style="margin-top:8px">参考: 前回2022年の期日前投票者は約16万8千人で、投票総数約44万票の約38%でした(RKB・TVQの報道)。</p>
 </section>
 
+<section id="mood">
+  <h2><small>Voter awareness</small>有権者の意識</h2>
+  <p class="lead">報道機関や選管が自ら実施・公表した、有権者の関心・投票意向・投票率などの調査結果を、報道の数字どおりに要約して載せます。調査ごとに対象・方法が異なるため、数字同士の比較はできません。特定の候補者の支持と結びつけた分析や、投票率の予測は載せません。</p>
+  <div class="tbl"><table class="t">
+    <thead><tr><th>報道機関・時点</th><th>項目</th><th>報じられた内容(要約)</th><th>出典</th></tr></thead>
+    <tbody id="mood-body"></tbody>
+  </table></div>
+</section>
+
 <section id="line">
   <h2><small>Winning line</small>当選に必要な得票の目安</h2>
   <p class="lead">市長選の当選には、最多得票であることに加え、<b>有効投票総数の4分の1(25%)以上</b>の得票(法定得票数)が必要です。どの候補も届かない場合は再選挙になります。下の表は、無効票を考慮した目安です。</p>
@@ -398,6 +407,9 @@ footer ul{padding-left:1.2em}
     <li>読売新聞オンライン 候補者の主張(11/9)・候補者の横顔(11/5)(<a href="https://news.yahoo.co.jp/articles/90c8abd19314a0d5d48f27bbd464c8bd69202567">例: 阿部氏の主張</a>・<a href="https://news.yahoo.co.jp/articles/800f18248666811b40dea662128c6b69f32371af">西脇氏の横顔</a>)</li>
     <li><a href="https://news.yahoo.co.jp/articles/e718f013d76a434606684112b3eb277abb1a85d3">テレQ(TVQ九州放送) 福岡市長選 中盤戦の動き(11/10)</a>・<a href="https://news.yahoo.co.jp/articles/93ff817ce1f241f78d536eedc4e26220e974a2a2">TNC 折り返し過ぎた選挙戦(11/9)</a></li>
     <li><a href="https://news.yahoo.co.jp/articles/c565ddd2b4a9eea603a1ee97a1c2c1ac242cad8b">朝日新聞 維新が自主投票の方針決定(10/30)</a></li>
+    <li>RKB毎日放送 候補者アンケート <a href="https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9">不動産価格・家賃(11/6)</a>・<a href="https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758">副首都構想(11/12)</a></li>
+    <li>読売新聞オンライン <a href="https://news.yahoo.co.jp/articles/16afa84ade9ad8b5b1786459fc7dd3c6263787c2">13候補の政策や主張(11/12)</a>・<a href="https://news.yahoo.co.jp/articles/f82d9f21376389cba5a5f106162ec8f9c3fcb56a">選管の投票率アップ作戦(11/12)</a>・<a href="https://news.yahoo.co.jp/articles/fbf3d8c54cf0636c3b9a13dd774da0175c92b565">投票率は3回連続で40%下回る(11/13)</a></li>
+    <li><a href="https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/kijitumaesokuho.html">福岡市選管 期日前投票者数速報</a></li>
   </ul>
   <p>報道機関が自社で公表した情勢調査は、報道の表現のまま要約して載せます(出どころ不明の数字や個人の予測は載せません)。事実と発言の要約のみを記録し、思想ラベルや評価は載せません(例外として、公約欄の「継続・評価/見直し・批判/新規・その他」は、文面にもとづくAIの参考判定で、基準を公約欄に明記しています)。出典のない情報は載せません。公式サイトのURLは第三者の一覧にもとづき、個別の確認は済んでいません。</p>
   <p>このページは、特定の候補者の当選・落選を目的とせず、公開情報を整理して市民の判断材料にするための、個人運営の非営利ページです。誤りや修正のご指摘は <a href="https://github.com/mandrill-fukuoka/fukuoka-mayor-2026/issues">GitHubのIssues</a> へお願いします。</p>
@@ -781,7 +793,33 @@ var STM=[
  {who:'nishiwaki',date:'2026-11-11',theme:'副首都構想',media:'読売新聞アンケート',text:'「賛成」。首都機能の分散で災害時の国の機能を守り、企業・人材の集積を福岡の仕事と所得につなげたいとした。',url:'https://news.yahoo.co.jp/articles/8e6e05bf8a197613c08a4c36d88021fcbb356a4f'},
  {who:'mori',date:'2026-11-11',theme:'副首都構想',media:'読売新聞アンケート',text:'「どちらでもない」。何をいくらでつくり市民負担はどうなるかが不明だとし、必要性が明確になれば前向きに取り組むとした。',url:'https://news.yahoo.co.jp/articles/05a7626e9cff92df9f4aada4f4a5f512dd9108a3'},
  {who:'yoshitomi',date:'2026-11-11',theme:'副首都構想',media:'読売新聞アンケート',text:'「賛成」。災害時の首都機能代替には意義があるとし、国の予算・事業が地元企業と市民所得につながるか見極めるとした。',url:'https://news.yahoo.co.jp/articles/261ecbdf11169562444202acff51394299431438'},
- {who:'watanabe',date:'2026-11-11',theme:'副首都構想',media:'読売新聞アンケート',text:'「賛成」。国が副首都の設置を決めているとし、福岡県・北九州市と協力して取り組むとした。',url:'https://news.yahoo.co.jp/articles/c2238ac4de8c603cd1101390993c4ab2d8609fc9'}
+ {who:'watanabe',date:'2026-11-11',theme:'副首都構想',media:'読売新聞アンケート',text:'「賛成」。国が副首都の設置を決めているとし、福岡県・北九州市と協力して取り組むとした。',url:'https://news.yahoo.co.jp/articles/c2238ac4de8c603cd1101390993c4ab2d8609fc9'},
+ {who:'aramaki',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'首都機能を補完しつつ、世界の教育首都として発展させるとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'mori',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'まず必要性の検証が先で、必要と判断されれば福岡が最適だとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'nishiwaki',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'副首都化を市民の仕事と所得の増加に結びつけたいとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'watanabe',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'国が実施を決めているとして、福岡への誘致に取り組むとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'katayama',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'詳細が明らかでなく優先順位も判断できないとして、判断を保留した。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'shimmura',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'防災と交通を強化する好機と捉え、誘致を推進するとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'abe',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'福岡の強みを生かして副首都機能を誘致し、都市機能の強化も進めるとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'inatomi',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'「副首都福岡」を実現し、雇用と所得の増加につなげるとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'yoshitomi',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'福岡県と連携しつつ、地元企業と市民の利益を重視して進めるとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'sasaki',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'賛成としたうえで、市民にメリットがある形での実現を必須条件に挙げた。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'shirabe',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'県・市と連携して福岡への副首都機能の誘致を進めるとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'jinno',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'現市政の取り組みを継承・加速し、都市の発展と防災力の強化につなげるとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'inoue',date:'2026-11-12',theme:'副首都構想',media:'RKBアンケート',text:'実施するかどうかは市民の意思を聞いて決めたいとした。',url:'https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758'},
+ {who:'aramaki',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'住宅供給の促進と所得の向上によって、住居費の負担を軽くするとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'mori',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'住宅支援と大幅な減税で、市民の手取りを増やすとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'nishiwaki',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'手頃な家賃の住宅を増やして住居費を軽減するとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'watanabe',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'不動産価格・家賃の上昇は人口増加に伴う弊害だとの認識を示した。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'katayama',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'住まいは人権だとして、家賃補助と公営住宅の拡充を挙げた。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'shimmura',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'住まいへの支援拡充と所得向上を両輪で進めるとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'abe',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'若者・子育て世帯への家賃補助などで住居費の負担を軽減するとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'inatomi',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'家賃支援や住宅の供給策で住居費の負担を軽くするとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'yoshitomi',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'投機目的の不動産取得の実態把握と民泊規制で、住宅を守るとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'sasaki',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'市営住宅の拡充や空き家の活用、家賃補助などの支援を進めるとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'shirabe',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'住宅費の高騰を市民生活の課題と位置づけ、負担軽減策を進めるとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'jinno',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'価格上昇を成長の影の部分とし、手頃な家賃の住まいを増やすとした。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'},
+ {who:'inoue',date:'2026-11-06',theme:'住宅・不動産価格',media:'RKBアンケート',text:'発展に伴う副作用だとして、天神への一極集中の見直しを挙げた。',url:'https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9'}
 ];
 var SK='https://www.city.fukuoka.lg.jp/soki/kikaku/shisei/fukuokashikihonkosokihonkeikaku/';
 var PLANS=[
@@ -1024,7 +1062,9 @@ var PLEDGES=[
  {t:'neu',who:'watanabe',k:'intl',text:'留学生や技能実習生などの日本側の受け入れ機関への働きかけを徹底する。(読売新聞アンケート)',date:'2026-11-11',url:'https://news.yahoo.co.jp/articles/c2238ac4de8c603cd1101390993c4ab2d8609fc9'},
  {t:'pos',who:'watanabe',k:'life',text:'民生委員・公民館と共に、高齢者が活躍できる地域づくりを検討する。(読売新聞アンケート)',date:'2026-11-11',url:'https://news.yahoo.co.jp/articles/c2238ac4de8c603cd1101390993c4ab2d8609fc9'},
  {t:'pos',who:'inatomi',k:'kids',text:'夏休みの学校給食の提供を検討する。(読売新聞アンケート)',date:'2026-11-11',url:'https://news.yahoo.co.jp/articles/2a405ce93db82d4276e940fe753f3d5ee6ebcf2d'},
- {t:'pos',who:'katayama',k:'life',text:'高齢者の補聴器購入を助成する。(読売新聞アンケート)',date:'2026-11-11',url:'https://news.yahoo.co.jp/articles/e3eb67ba40ad863cd795582f22eaf85839bdd7bb'}
+ {t:'pos',who:'katayama',k:'life',text:'高齢者の補聴器購入を助成する。(読売新聞アンケート)',date:'2026-11-11',url:'https://news.yahoo.co.jp/articles/e3eb67ba40ad863cd795582f22eaf85839bdd7bb'},
+ {t:'pos',who:'mori',k:'city',text:'公共交通機関がない地域などで、高齢者の移動手段として自動運転タクシーの早期導入を目指す。(読売新聞)',date:'2026-11-12',url:'https://news.yahoo.co.jp/articles/16afa84ade9ad8b5b1786459fc7dd3c6263787c2'},
+ {t:'pos',who:'watanabe',k:'intl',text:'近隣自治体との連携を強め、福岡県とも協力して福岡都市圏での一体的な行政運営を目指す。(読売新聞)',date:'2026-11-12',url:'https://news.yahoo.co.jp/articles/16afa84ade9ad8b5b1786459fc7dd3c6263787c2'}
 ];
 
 var SUP=[
@@ -1247,10 +1287,20 @@ var EARLY=[
  {d:'11/7まで',n:'4万6202人',cmp:'4年前の同時期を上回る',src:'KBC',url:'https://kbc.co.jp/news/article.php?id=18471266&ymd=2026-11-08'},
  {d:'11/8まで',n:'7万87人',cmp:'前回の同じ時期より8500人あまり上回る',src:'KBC(Yahoo!ニュース)',url:'https://news.yahoo.co.jp/articles/36bf5d1c5f8612e772f46e967ebb3b9bc06fe436'},
  {d:'11/10まで',n:'(人数の記載なし)',cmp:'前回の同じ時期より約2割多い',src:'TNC',url:'https://news.tnc.co.jp/news/articles/NID2026111132801'},
- {d:'11/11まで',n:'14万3190人',cmp:'前回市長選(2022年)の10万9049人を4万人近く上回る(DATA MAXの記載)',src:'DATA MAX',url:'https://data-max.co.jp/article/87952'}
+ {d:'11/11まで',n:'14万3190人',cmp:'前回市長選(2022年)の10万9049人を4万人近く上回る(DATA MAXの記載)',src:'DATA MAX',url:'https://data-max.co.jp/article/87952'},
+ {d:'11/12まで',n:'17万4392人',cmp:'前回(2022年)の同じ時期は12万4847人(選管の速報資料の記載)',src:'福岡市選管(期日前投票者数速報)',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/shi_kijituzen1112.pdf'}
 ];
 function renderEarly(){var b=document.getElementById('early-body');if(!b)return;
  b.innerHTML=EARLY.map(function(r){return '<tr><td>'+esc(r.d)+'</td><td>'+esc(r.n)+'</td><td>'+esc(r.cmp)+'</td><td><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.src)+'</a></td></tr>';}).join('');}
+var MOOD=[
+ {outlet:'TNC(テレビ西日本)',date:'2026-11-08',item:'市長選への関心',text:'電話調査(11/6〜7、固定516人・携帯512人の有効回答)で、市長選に関心がある人は94.0%と報じた。',url:'https://news.tnc.co.jp/news/articles/NID2026110832755'},
+ {outlet:'TNC(テレビ西日本)',date:'2026-11-08',item:'投票意向',text:'同じ調査で、投票に「行く」(必ず・たぶん)は87.1%、期日前投票を済ませた人は10.0%と報じた。',url:'https://news.tnc.co.jp/news/articles/NID2026110832755'},
+ {outlet:'共同通信',date:'2026-11-08',item:'投票先の決定状況',text:'電話調査(11/6〜7)で、回答者の3割超が投票先をまだ決めていないと報じた。',url:'https://www.nikkei.com/article/DGXZQOJC0805L0Y6A101C2000000/'},
+ {outlet:'読売新聞',date:'2026-11-12',item:'年代別の投票率(前回2022年)',text:'前回の市長選の年代別投票率は、20歳代が15.47%で最も低く、19歳16.95%、30歳代24.77%、18歳30.52%と続き、50歳代以上はいずれも全体(34.31%)を上回ったと報じた。',url:'https://news.yahoo.co.jp/articles/f82d9f21376389cba5a5f106162ec8f9c3fcb56a'},
+ {outlet:'読売新聞',date:'2026-11-13',item:'過去の投票率',text:'市長選の投票率は2010年43.67%、2014年38.73%、2018年31.42%(過去最低)、2022年34.31%と報じた。期日前投票は2022年に16万8211人で、全投票者の38%を占めたとしている。',url:'https://news.yahoo.co.jp/articles/fbf3d8c54cf0636c3b9a13dd774da0175c92b565'}
+];
+function renderMood(){var b=document.getElementById('mood-body');if(!b)return;
+ b.innerHTML=MOOD.map(function(r){return '<tr><td>'+esc(r.outlet)+'<br><span style="color:var(--sub);font-size:12px">'+esc(r.date)+'</span></td><td>'+esc(r.item)+'</td><td>'+esc(r.text)+'</td><td><a href="'+esc(r.url)+'" target="_blank" rel="noopener">記事</a></td></tr>';}).join('');}
 function renderHist(){
   cols('h-cand',[['2010',8],['2014',6],['2018',2],['2022',3],['2026',13]],13,'2026');
   cols('h-turn',[['2014',38.79],['2018',31.42],['2022',34.31]],50,'',' ');
@@ -1283,7 +1333,7 @@ $('copy').onclick=function(){
   try{navigator.clipboard.writeText(t).then(function(){$('msg').textContent='コピーしました'},function(){$('msg').textContent='コピーできませんでした'})}catch(err){$('msg').textContent='コピーできませんでした'}
 };
 
-fillSelects();renderGrid();renderSup();renderHm();renderTc();renderBars();renderPlans();renderHist();renderTrend();renderEarly();renderStm();
+fillSelects();renderGrid();renderSup();renderHm();renderTc();renderBars();renderPlans();renderHist();renderTrend();renderEarly();renderMood();renderStm();
 </script>
 </body>
 </html>
