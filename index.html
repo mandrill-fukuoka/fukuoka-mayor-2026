@@ -304,7 +304,7 @@ footer ul{padding-left:1.2em}
 
 <section id="trend">
   <h2><small>Poll reports</small>報道機関の情勢調査</h2>
-  <p class="lead">報道機関が自社で実施・公表した情勢調査の内容を、報道の表現のまま要約して載せます。電話調査に取材を加味した「情勢」で、得票の予測ではありません。<b>回答者の3割超が投票先を決めていない</b>(共同通信)ため、情勢は変わる可能性があります。出どころの不明な数字、個人の予測、関係者間で流れている情報は載せません。</p>
+  <p class="lead">報道機関が自社で実施・公表した情勢調査の内容を、報道の表現のまま要約して載せます。電話調査に取材を加味した「情勢」やネット調査の結果で、得票の予測ではありません。電話とネットでは調査方法が異なるため、各社の結果は単純に比べられません。<b>回答者の3割超が投票先を決めていない</b>(共同通信)ため、情勢は変わる可能性があります。出どころの不明な数字、個人の予測、関係者間で流れている情報は載せません。</p>
   <div class="tbl"><table class="t">
     <thead><tr><th>報道機関</th><th>調査日・方法</th><th>報じられた内容(要約)</th><th>出典</th></tr></thead>
     <tbody id="trend-body"></tbody>
@@ -324,7 +324,7 @@ footer ul{padding-left:1.2em}
 
 <section id="mood">
   <h2><small>Voter awareness</small>有権者の意識</h2>
-  <p class="lead">報道機関や選管が自ら実施・公表した、有権者の関心・投票意向・投票率などの調査結果を、報道の数字どおりに要約して載せます。調査ごとに対象・方法が異なるため、数字同士の比較はできません。特定の候補者の支持と結びつけた分析や、投票率の予測は載せません。</p>
+  <p class="lead">報道機関や選管が自ら実施・公表した、有権者の関心・投票意向・投票率などの調査結果を、報道の数字どおりに要約して載せます。調査ごとに対象・方法が異なるため、数字同士の比較はできません。公募型のアンケート(答えたい人が答える形式)は、報道機関自身が注記しているとおり世論調査ではありません。特定の候補者の支持と結びつけた分析や、投票率の予測は載せません。</p>
   <div class="tbl"><table class="t">
     <thead><tr><th>報道機関・時点</th><th>項目</th><th>報じられた内容(要約)</th><th>出典</th></tr></thead>
     <tbody id="mood-body"></tbody>
@@ -410,6 +410,7 @@ footer ul{padding-left:1.2em}
     <li>RKB毎日放送 候補者アンケート <a href="https://news.yahoo.co.jp/articles/a505d6853507b3bf0af4f47154fbb1a3e0402fd9">不動産価格・家賃(11/6)</a>・<a href="https://news.yahoo.co.jp/articles/61bacd0ca5271c1ed3fc1857fd2c09a9d4a41758">副首都構想(11/12)</a></li>
     <li>読売新聞オンライン <a href="https://news.yahoo.co.jp/articles/16afa84ade9ad8b5b1786459fc7dd3c6263787c2">13候補の政策や主張(11/12)</a>・<a href="https://news.yahoo.co.jp/articles/f82d9f21376389cba5a5f106162ec8f9c3fcb56a">選管の投票率アップ作戦(11/12)</a>・<a href="https://news.yahoo.co.jp/articles/fbf3d8c54cf0636c3b9a13dd774da0175c92b565">投票率は3回連続で40%下回る(11/13)</a></li>
     <li><a href="https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/kijitumaesokuho.html">福岡市選管 期日前投票者数速報</a></li>
+    <li><a href="https://news.yahoo.co.jp/articles/b8fade44ce0d6aef2bd6d7beb75fe2246e4af7ca">選挙ドットコム・JX通信社 福岡市長選挙 中盤情勢調査(11/10)</a>・<a href="https://kbc.co.jp/election/shimin/">KBC 市民アンケート結果(10/16〜22)</a></li>
   </ul>
   <p>報道機関が自社で公表した情勢調査は、報道の表現のまま要約して載せます(出どころ不明の数字や個人の予測は載せません)。事実と発言の要約のみを記録し、思想ラベルや評価は載せません(例外として、公約欄の「継続・評価/見直し・批判/新規・その他」は、文面にもとづくAIの参考判定で、基準を公約欄に明記しています)。出典のない情報は載せません。公式サイトのURLは第三者の一覧にもとづき、個別の確認は済んでいません。</p>
   <p>このページは、特定の候補者の当選・落選を目的とせず、公開情報を整理して市民の判断材料にするための、個人運営の非営利ページです。誤りや修正のご指摘は <a href="https://github.com/mandrill-fukuoka/fukuoka-mayor-2026/issues">GitHubのIssues</a> へお願いします。</p>
@@ -1273,6 +1274,7 @@ function cols(el,data,max,cur,unit){
 var POLLS=[
  {outlet:'共同通信',date:'2026-11-08',method:'11/6〜7に電話調査(固定516人・携帯512人の有効回答)に取材を加味',text:'稲富氏がやや先行し、調氏、森氏、新村氏、吉富氏、佐々木氏が猛追と報道。回答者の3割超が投票先を決めておらず、支持が分散して再選挙になる可能性にも触れている。',url:'https://www.nikkei.com/article/DGXZQOJC0805L0Y6A101C2000000/',by:{inatomi:'やや先行',shirabe:'猛追',mori:'猛追',shimmura:'猛追',yoshitomi:'猛追',sasaki:'猛追'}},
  {outlet:'TNC(テレビ西日本)',date:'2026-11-08',method:'11/6〜7に電話調査(固定516人・携帯512人の有効回答)に取材を加味',text:'稲富氏がややリードし、調氏、森氏、新村氏が横一線で追い上げと報道。市長選への関心は94.0%、投票に「行く」(必ず・たぶん)は87.1%、期日前投票を済ませた人は10.0%。',url:'https://news.tnc.co.jp/news/articles/NID2026110832755',by:{inatomi:'ややリード',shirabe:'横一線で追い上げ',mori:'横一線で追い上げ',shimmura:'横一線で追い上げ'}},
+ {outlet:'選挙ドットコム・JX通信社(合同)',date:'2026-11-10',method:'11/6〜7にネット調査(1077サンプル、性・年代を人口統計に合わせて補正)。電話調査ではなくネット調査',text:'稲富氏がややリードし、森氏、調氏、吉富氏が続き、新村氏、神野氏、佐々木氏が追い上げると報道。全体の5割以上が投票先を決めておらず、再選挙の可能性にも触れている。年代別では稲富氏は高齢層(70代で2割)、森氏は若い世代の支持が比較的厚いとし、無党派層では稲富氏がトップ、次いで神野氏としている。',url:'https://news.yahoo.co.jp/articles/b8fade44ce0d6aef2bd6d7beb75fe2246e4af7ca',by:{inatomi:'ややリード',mori:'続く',shirabe:'続く',yoshitomi:'続く',shimmura:'追い上げる',jinno:'追い上げる',sasaki:'追い上げる',katayama:'支持拡大を図る',abe:'支持拡大を図る',inoue:'広がりを欠く',watanabe:'広がりを欠く',aramaki:'広がりを欠く',nishiwaki:'広がりを欠く'}},
  {outlet:'西日本新聞',date:'2026-11-07',method:'11/6〜7に電話調査に取材を加味',text:'稲富氏がリードし、調氏、森氏、新村氏が追う展開と報道。再選挙の可能性にも触れている。関連記事で、年代別の支持層や有権者の関心、重視する政策も報じている。',url:'https://www.nishinippon.co.jp/item/1558052/',by:{inatomi:'リード',shirabe:'追う展開',mori:'追う展開',shimmura:'追う展開'}}
 ];
 function renderTrend(){
@@ -1297,7 +1299,14 @@ var MOOD=[
  {outlet:'TNC(テレビ西日本)',date:'2026-11-08',item:'投票意向',text:'同じ調査で、投票に「行く」(必ず・たぶん)は87.1%、期日前投票を済ませた人は10.0%と報じた。',url:'https://news.tnc.co.jp/news/articles/NID2026110832755'},
  {outlet:'共同通信',date:'2026-11-08',item:'投票先の決定状況',text:'電話調査(11/6〜7)で、回答者の3割超が投票先をまだ決めていないと報じた。',url:'https://www.nikkei.com/article/DGXZQOJC0805L0Y6A101C2000000/'},
  {outlet:'読売新聞',date:'2026-11-12',item:'年代別の投票率(前回2022年)',text:'前回の市長選の年代別投票率は、20歳代が15.47%で最も低く、19歳16.95%、30歳代24.77%、18歳30.52%と続き、50歳代以上はいずれも全体(34.31%)を上回ったと報じた。',url:'https://news.yahoo.co.jp/articles/f82d9f21376389cba5a5f106162ec8f9c3fcb56a'},
- {outlet:'読売新聞',date:'2026-11-13',item:'過去の投票率',text:'市長選の投票率は2010年43.67%、2014年38.73%、2018年31.42%(過去最低)、2022年34.31%と報じた。期日前投票は2022年に16万8211人で、全投票者の38%を占めたとしている。',url:'https://news.yahoo.co.jp/articles/fbf3d8c54cf0636c3b9a13dd774da0175c92b565'}
+ {outlet:'読売新聞',date:'2026-11-13',item:'過去の投票率',text:'市長選の投票率は2010年43.67%、2014年38.73%、2018年31.42%(過去最低)、2022年34.31%と報じた。期日前投票は2022年に16万8211人で、全投票者の38%を占めたとしている。',url:'https://news.yahoo.co.jp/articles/fbf3d8c54cf0636c3b9a13dd774da0175c92b565'},
+ {outlet:'選挙ドットコム・JX通信社(合同)',date:'2026-11-10',item:'投票先の決定状況',text:'ネット調査(11/6〜7、1077サンプル)で、全体の5割以上が投票先を決めておらず、男性は5割弱、女性は6割強が未定と報じた。',url:'https://news.yahoo.co.jp/articles/b8fade44ce0d6aef2bd6d7beb75fe2246e4af7ca'},
+ {outlet:'選挙ドットコム・JX通信社(合同)',date:'2026-11-10',item:'高島市政の評価',text:'同じ調査で、高島市長を評価する人は8割以上だったと報じた。',url:'https://news.yahoo.co.jp/articles/b8fade44ce0d6aef2bd6d7beb75fe2246e4af7ca'},
+ {outlet:'選挙ドットコム・JX通信社(合同)',date:'2026-11-10',item:'重視する政策',text:'同じ調査で、重視する政策は「経済」が最も多く、次いで「交通インフラ」だったと報じた。',url:'https://news.yahoo.co.jp/articles/b8fade44ce0d6aef2bd6d7beb75fe2246e4af7ca'},
+ {outlet:'選挙ドットコム・JX通信社(合同)',date:'2026-11-10',item:'県議会の海外視察',text:'同じ調査で、県議会の海外視察に公費・政務活動費を「使ってもよい」は約26%、「使ってはだめだ」は約74%だったと報じた。',url:'https://news.yahoo.co.jp/articles/b8fade44ce0d6aef2bd6d7beb75fe2246e4af7ca'},
+ {outlet:'KBC(九州朝日放送)',date:'2026-10-22',item:'次の市長に望む分野',text:'KBCアプリでの公募アンケート(10/16〜22、市内の有権者553人。KBCは「世論調査ではない」と注記)で、いちばん取り組んでほしい分野は「物価・家計」30%、「医療・介護・福祉」17%、「交通」と「市役所の仕事ぶり・税金の使い方」が各11%。60代以上は医療・介護・福祉が物価・家計と並ぶ27%、10〜30代は子育て・教育が4人に1人とした。',url:'https://kbc.co.jp/election/shimin/'},
+ {outlet:'KBC(九州朝日放送)',date:'2026-10-22',item:'市政の評価・暮らしやすさ',text:'同じアンケートで、16年の市政を「評価する」「やや評価する」は約9割、暮らしやすさに80点以上をつけた人は約7割とした。',url:'https://kbc.co.jp/election/shimin/'},
+ {outlet:'KBC(九州朝日放送)',date:'2026-10-22',item:'再選挙の制度の認知',text:'同じアンケートで、有効投票の4分の1に届かないと再選挙になる決まりを知らなかった人は33%(40代以下は44%)。知っていた人のうち「避けてほしい」は51%、「なってもよい」は38%とした。',url:'https://kbc.co.jp/election/shimin/'}
 ];
 function renderMood(){var b=document.getElementById('mood-body');if(!b)return;
  b.innerHTML=MOOD.map(function(r){return '<tr><td>'+esc(r.outlet)+'<br><span style="color:var(--sub);font-size:12px">'+esc(r.date)+'</span></td><td>'+esc(r.item)+'</td><td>'+esc(r.text)+'</td><td><a href="'+esc(r.url)+'" target="_blank" rel="noopener">記事</a></td></tr>';}).join('');}
