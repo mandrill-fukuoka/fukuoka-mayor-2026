@@ -1316,7 +1316,8 @@ var EARLY=[
  {d:'11/10まで',n:'(人数の記載なし)',cmp:'前回の同じ時期より約2割多い',src:'TNC',url:'https://news.tnc.co.jp/news/articles/NID2026111132801'},
  {d:'11/11まで',n:'14万3190人',cmp:'前回市長選(2022年)の10万9049人を4万人近く上回る(DATA MAXの記載)',src:'DATA MAX',url:'https://data-max.co.jp/article/87952'},
  {d:'11/12まで',n:'17万4392人',cmp:'前回(2022年)の同じ時期は12万4847人(選管の速報資料の記載)',src:'福岡市選管(期日前投票者数速報)',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/shi_kijituzen1112.pdf'},
- {d:'11/13まで',n:'21万1161人',cmp:'前回(2022年)の同じ時期は14万3048人(選管の速報資料の記載)',src:'福岡市選管(期日前投票者数速報)',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/shi_kijituzen1113.pdf'}
+ {d:'11/13まで',n:'21万1161人',cmp:'前回(2022年)の同じ時期は14万3048人(選管の速報資料の記載)',src:'福岡市選管(期日前投票者数速報)',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/shi_kijituzen1113.pdf'},
+ {d:'11/14まで(最終)',n:'25万6811人',cmp:'前回(2022年)の期日前投票の最終は16万8211人(選管の速報資料の記載)',src:'福岡市選管(期日前投票者数速報)',url:'https://www.city.fukuoka.lg.jp/senkan/senkyo/shisei/senkyotokusetu/shicho/documents/shi_kijituzen1114.pdf'}
 ];
 function renderEarly(){var b=document.getElementById('early-body');if(!b)return;
  b.innerHTML=EARLY.map(function(r){return '<tr><td>'+esc(r.d)+'</td><td>'+esc(r.n)+'</td><td>'+esc(r.cmp)+'</td><td><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.src)+'</a></td></tr>';}).join('');}
